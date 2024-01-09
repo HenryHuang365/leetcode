@@ -52,11 +52,14 @@ def removeDuplicates(self, nums):
     # return j
     
     # One counter [1, 1, 2]
-    counter = 0
-    for i in range (1, len(nums)):
-        if nums[i] == nums[i-1]:
-            counter += 1
-        else:
-            nums[i-counter] = nums[i]
+    # counter = 0
+    # for i in range (1, len(nums)):
+    #     if nums[i] == nums[i-1]:
+    #         counter += 1
+    #     else:
+    #         nums[i-counter] = nums[i]
             
-    return len(nums) - counter
+    # return len(nums) - counter
+    
+    nums[:] = sorted(set(nums))
+    return len(nums)
