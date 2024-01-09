@@ -43,10 +43,20 @@
 # class Solution(object):
 def removeDuplicates(self, nums):
     # two pointers
-    j = 0
-    for i in range (1, len(nums)):
-        if nums[i] != nums[i-1]:
-            nums[j] = nums[i]
-            j += 1
+    # j = 1
+    # for i in range (1, len(nums)):
+    #     if nums[i] != nums[i-1]:
+    #         nums[j] = nums[i]
+    #         j += 1
 
-    return j
+    # return j
+    
+    # One counter [1, 1, 2]
+    counter = 0
+    for i in range (1, len(nums)):
+        if nums[i] == nums[i-1]:
+            counter += 1
+        else:
+            nums[i-counter] = nums[i]
+            
+    return len(nums) - counter
