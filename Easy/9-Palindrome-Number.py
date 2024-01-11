@@ -36,15 +36,29 @@ def isPalindrome(self, x):
     """
     # reverse the entire integer
     # This is also the way to reverse an integer. 
-    if x < 0:
+    # if x < 0:
+    #     return False
+    
+    # reversed_num = 0
+    # temp = x
+    
+    # while temp != 0:
+    #     last_digit = temp % 10
+    #     reversed_num = reversed_num * 10 + last_digit
+    #     temp //= 10
+        
+    # return reversed_num == x
+    
+    
+    # reverse half of the integer as palindrome is symmetrical
+    if x < 0 or (x != 0 and x % 10 == 0):
         return False
     
     reversed_num = 0
     temp = x
     
-    while temp != 0:
-        last_digit = temp % 10
-        reversed_num = reversed_num * 10 + last_digit
+    while temp > reversed_num:
+        reversed_num = reversed_num * 10 + temp % 10
         temp //= 10
         
-    return reversed_num == x
+    return temp == reversed_num or temp == (reversed_num // 10)
