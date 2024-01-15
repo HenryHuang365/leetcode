@@ -42,5 +42,5 @@ def isValid(self, s):
             (c == "]" and stack[-1] != "[") or \
             (c == "}" and stack[-1] != "{"):
                 return False
-            
+            stack.pop()
     return not stack
