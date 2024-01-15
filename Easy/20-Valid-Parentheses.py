@@ -37,10 +37,10 @@ def isValid(self, s):
         if c in "([{":
             stack.append(c)
         else: 
-            if len(stack) == 0 or
-            (if c == ")" and stack[-1] != "(") or 
-            (if c == "]" and stack[-1] != "[") or 
-            (if c == "}" and stack[-1] != "{}") or:
+            if (len(stack) == 0) or \
+            (c == ")" and stack[-1] != "(") or \
+            (c == "]" and stack[-1] != "[") or \
+            (c == "}" and stack[-1] != "{"):
                 return False
             
     return not stack
