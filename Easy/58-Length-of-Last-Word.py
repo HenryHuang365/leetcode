@@ -44,4 +44,15 @@ def lengthOfLastWord(self, s):
             return len(str_arr[i])
     
     return 0
+
+
+def lengthOfLastWord2(self, s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    # By default, the separator is any whitespace in the split function
+    # so do not need to worry about multiple spaces between words
+    str_arr = s.split()    
+    return len(str_arr[-1])
         
