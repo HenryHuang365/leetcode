@@ -35,5 +35,13 @@ def lengthOfLastWord(self, s):
     :type s: str
     :rtype: int
     """
+    str_arr = s.split(" ")
+    
+    for i in range(len(str_arr) - 1, 0):
+        # for empty spaces, the split function will put them as "" elements in the array
+        # so skip "" elements to find the last word. 
+        if str_arr[i] != "": 
+            return len(str_arr[i])
+    
     return 0
         
