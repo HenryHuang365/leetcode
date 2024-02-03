@@ -26,4 +26,15 @@ def mySqrt(self, x):
     :type x: int
     :rtype: int
     """
-    return 0
+    # i = 0
+    # while True: 
+    #     if i * i == x: 
+    #         return i
+    #     elif i * i > x:
+    #         return i - 1
+        
+    #     i += 1
+    
+    r = x
+    while (r * r > x):
+        r = (r + x/r) // 2
