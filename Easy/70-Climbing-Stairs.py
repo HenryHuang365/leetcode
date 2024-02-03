@@ -30,4 +30,17 @@ def climbStairs(self, n):
     :type n: int
     :rtype: int
     """
-    return 0
+    if n == 0: return 0
+    if n == 1: return 1
+    if n == 2: return 2
+    
+    n1 = 2
+    n2 = 1
+    all_ways = 0
+    i = 2
+    while (i < n):
+        all_ways = n1 + n2
+        n2 = n1
+        n1 = all_ways
+        i += 1
+    return all_ways
