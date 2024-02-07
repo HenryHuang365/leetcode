@@ -13,8 +13,6 @@
 // The number of nodes in the tree is in the range [1, 1000].
 // -100 <= Node.val <= 100
 
-import javax.swing.tree.TreeNode;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -31,7 +29,31 @@ import javax.swing.tree.TreeNode;
  * }
  */
 class Solution {
+    public class TreeNode {
+         int val;
+         TreeNode left;
+         TreeNode right;
+         TreeNode() {}
+         TreeNode(int val) { this.val = val; }
+         TreeNode(int val, TreeNode left, TreeNode right) {
+             this.val = val;
+             this.left = left;
+             this.right = right;
+         }
+     }
     public boolean isSymmetric(TreeNode root) {
-        return false;
+        return root == null || isSymmetricHelper(root.left, root.right);
+    }
+
+    public boolean isSymmetricHelper(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+
+        return (root1.val == root2.val) && isSymmetricHelper(root1.left, root2.right) && isSymmetricHelper(root1.right, root2.left);
+
     }
 }
