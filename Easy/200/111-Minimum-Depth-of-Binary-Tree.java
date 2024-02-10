@@ -41,6 +41,13 @@ class Solution {
     }
 
     public int minDepth(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+
+        int maxLeft = minDepth(root.left);
+        int maxRight = minDepth(root.right);
+
+        return (maxLeft == 0 || maxRight == 0) ? maxLeft + maxRight + 1 : Math.min(maxLeft, maxRight) + 1;
     }
 }
