@@ -28,8 +28,6 @@
 
 // Definition for a binary tree node.
 
-import java.util.Arrays;
-
 class Solution {
     public class TreeNode {
         int val;
@@ -49,7 +47,20 @@ class Solution {
         if (len == 0) {
             return null;
         }
-        int mid = Math.floorDiv(len, 2);
-        return new TreeNode(mid, sortedArrayToBST(Arrays.copyOfRange(nums, 0, mid)), sortedArrayToBST(Arrays.copyOfRange(nums, mid, len)));
+        return helper(nums, 0, len - 1);
+    }
+
+    public TreeNode helper(int[] nums, int low, int high) {
+        if (high < low) {
+            return null;
+        }
+
+        int mid = (high + low) / 2;
+        TreeNode node = new TreeNode(nums[mid]);
+
+        node.left = helper(nums, low, mid - 1);
+        node.right = helper(nums, mid + 1, high);
+
+        return node;
     }
 }
