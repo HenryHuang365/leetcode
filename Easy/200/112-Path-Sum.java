@@ -35,8 +35,6 @@
 
 // Definition for a binary tree node.
 
-import java.util.ArrayList;
-
 class Solution {
     public class TreeNode {
         int val;
@@ -52,22 +50,23 @@ class Solution {
     }
 
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        ArrayList results = helper(root);
-        for (int i = 0; i < results.size(); i++) {
-            if (results[i] == targetSum) {
+        if (root == null) {
+            return false;
+        }
+        return helper(root, 0, targetSum);
+    }
+
+    public boolean helper(TreeNode root, int currentSum, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        currentSum += root.val;
+        if (root.left == null && root.right == null) {
+            if (currentSum == targetSum) {
                 return true;
             }
         }
-        return false;
-    }
 
-    public int[] helper(TreeNode root) {
-        if (root == null) {
-            return [0];
-        }
-        ArrayList leftList = helper(root.left);
-        ArrayList rightList = helper(root.right);
-        ArrayList list = leftList + rightList;
-        return list for (int i = 0; i < list.size(); i++) {list[i] = list[i] + 1;}
+        return helper(root.left, currentSum, targetSum) || helper(root.right, currentSum, targetSum);
     }
 }
