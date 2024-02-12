@@ -33,6 +33,7 @@
 // Definition for a binary tree node.
 
 import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public class TreeNode {
@@ -49,27 +50,26 @@ class Solution {
     }
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        if (root == null) {
-            return [[]];
-        }
-        List<List<Integer>> result = heler(root);
-        ArrayList resultList = [];
-        for (int i; i < result.size(); i++) {
-            if (sum(result[i]) == targetSum) {
-                resultList.append(reuslt[i]);
-            }
-        }
-
-        return resultList;
+        List<List<Integer>> paths = new ArrayList<>();
+        List<Integer> currentPath = new ArrayList<Integer>();
+        heler(root, targetSum, currentPath, paths);
+        return paths;
     }
 
-    public List<List<Integer>> heler(TreeNode root) {
+    void heler(TreeNode root, int targetSum, List<Integer> currentPath, List<List<Integer>> paths) {
         if (root == null) {
-            return [[]];
+            return;
         }
-        List<List<Integer>> left = heler(root.left);
-        List<List<Integer>> right = heler(root.right);
 
-        return left + right;
+        currentPath.add(root.val);
+
+        if (root.left == null && root.right == null && root.val == targetSum) {
+            paths.add(new ArrayList<>(currentPath));
+        } else {
+            heler(root.left, targetSum - root.val, currentPath, paths);
+            heler(root.right, targetSum - root.val, currentPath, paths);
+        }
+
+        currentPath.remove(currentPath.size() - 1);
     }
 }
