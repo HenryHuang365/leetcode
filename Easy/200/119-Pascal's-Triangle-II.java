@@ -31,6 +31,31 @@ import java.util.List;
 
 class Solution {
     public List<Integer> getRow(int rowIndex) {
-        return new ArrayList<>();
+        List<List<Integer>> rows = generate(rowIndex + 1);
+        return rows.get(rowIndex);
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        if (numRows == 1) {
+            List<List<Integer>> rows = new ArrayList<>();
+            List<Integer> row = new ArrayList<Integer>();
+            row.add(1);
+            rows.add(row);
+            return rows;
+        }
+        
+        List<List<Integer>> prevRows = generate(numRows - 1);
+        List<Integer> newRow = new ArrayList<>();
+
+        for (int i = 0; i < numRows; i++) {
+            newRow.add(1);
+        }
+
+        for (int i = 1; i < numRows - 1; i++) {
+            newRow.set(i, prevRows.get(numRows - 2).get(i-1) + prevRows.get(numRows - 2).get(i));
+        }
+
+        prevRows.add(newRow);
+        return prevRows;
     }
 }
