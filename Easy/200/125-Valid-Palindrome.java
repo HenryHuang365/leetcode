@@ -30,6 +30,17 @@
 
 class Solution {
     public boolean isPalindrome(String s) {
+        String str = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        if (str.length() == 0) {
+            return true;
+        }
+        String reversed_str = "";
+        for (int i = str.length()-1; i >= 0; i--) {
+            reversed_str += str.charAt(i);
+        }
+        if (str.equals(reversed_str.toLowerCase())) {
+            return true;
+        }
         return false;
     }
 }
