@@ -44,7 +44,20 @@ class Solution {
             this.right = right;
         }
     }
+
+    public void preorder(TreeNode node, List<Integer> array) {
+        if (node == null) {
+            return;
+        }
+
+        array.add(node.val);
+        preorder(node.left, array);
+        preorder(node.right, array);
+    }
+
     public List<Integer> preorderTraversal(TreeNode root) {
-        return new ArrayList<>();
+        List<Integer> array = new ArrayList<>();
+        preorder(root, array);
+        return array;
     }
 }
