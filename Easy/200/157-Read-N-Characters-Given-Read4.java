@@ -31,8 +31,46 @@
 // T: O(n)
 // S: O(1)
 
+
 class Solution {
-    public int readNcharacter(int[] nums) {        
-        return 0;
+    public int read(char[] buf, int n) {        
+        int numCharsRead = 0;
+
+        while (numCharsRead < n) {
+            char[] cache = {' ', ' ', ' ', ' '};
+            int read4Chars = read4(cache);
+
+            if (read4Chars == 0) {
+                break;
+            }
+
+            int cacheCnt = 0; 
+            while (read4Chars > 0 && numCharsRead < n) {
+                buf[numCharsRead] = cache[cacheCnt];
+                read4Chars--;
+                numCharsRead++;
+                cacheCnt++;
+            }
+        }
+
+        return numCharsRead;
+    }
+
+    public int read4(char[] cache) {
+        char[] charsToAdd = {'a', 'b', 'c', 'd'};
+        for (int i = 0; i < 4; i++) {
+            cache[i] = charsToAdd[i];
+        }
+        return cache.length;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int n = Integer.parseInt(args[0]);
+        char[] buf = {' ', ' ', ' ', ' '};
+        int result = solution.read(buf, n);
+
+        System.out.println("Chars read: " + result);
+        System.out.println(buf);
     }
 }
