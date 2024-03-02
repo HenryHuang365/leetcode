@@ -71,6 +71,68 @@ class Solution {
         }
     }
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        return headA;
+        // Solution 1: Brute Force Solution
+        // while (headA != null) {
+        //     ListNode temp = headB;
+        //     while (temp != null) {
+        //         if (headA == temp) {
+        //             return headA;
+        //         }
+
+        //         temp = temp.next;
+        //     }
+
+        //     headA = headA.next;
+        // }
+        // return null;
+
+        // Solution 2: Length Difference Solution
+        // int n = 0;
+        // int m = 0;
+        // ListNode ptr1 = headA;
+        // ListNode ptr2 = headB;
+        // while (ptr1 != null) {
+        //     ptr1 = ptr1.next;
+        //     n++;
+        // }
+        // while (ptr2 != null) {
+        //     ptr2 = ptr2.next;
+        //     m++;
+        // }
+
+        // int dif = Math.abs(n-m);
+        // if (n > m) {
+        //     while (dif > 0) {
+        //         headA = headA.next;
+        //         dif--;
+        //     }
+        // } else {
+        //     while (dif > 0) {
+        //         headB = headB.next;
+        //         dif--;
+        //     }
+        // }
+
+        // while (headA != null && headB != null) {
+        //     if (headA == headB) {
+        //         return headA;
+        //     }
+
+        //     headA = headA.next;
+        //     headB = headB.next;
+        // }
+        // return null;
+        if (headA == null || headB == null) {
+            return null;
+        }
+
+        ListNode a = headA;
+        ListNode b = headB;
+
+        while (a != b) {
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
+        }
+        return a;
     }
 }
