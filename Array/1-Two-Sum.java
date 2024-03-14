@@ -10,3 +10,10 @@ class Solution {
         return new int[]{};
     }
 }
+
+// Learning points: 
+// 1. Java initialise array of intergers: 
+// myArray = new int[]{1, 2, 3, 4}
+// int[] myArray = {1, 2 ,3, 4}
+// int myArray[] = {1, 2, 3, 4}
+// int myArray = new int[4]
