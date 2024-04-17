@@ -36,45 +36,76 @@ def threeSum(self, nums):
     :type nums: List[int]
     :rtype: List[List[int]]
     """
-    res = set()
+    # res = set()
 
-    # 1. split the nums into 3 arrays of positive, negative and zero
-    n, p, z = [], [], []
+    # # 1. split the nums into 3 arrays of positive, negative and zero
+    # n, p, z = [], [], []
 
-    for num in nums: 
-        if num > 0: 
-            p.append(num)
-        elif num < 0: 
-            n.append(num)
-        else:
-            z.append(num)
+    # for num in nums: 
+    #     if num > 0: 
+    #         p.append(num)
+    #     elif num < 0: 
+    #         n.append(num)
+    #     else:
+    #         z.append(num)
 
-    # 2. create separate set for positives and negatives
-    P, N = set(p), set(n)
+    # # 2. create separate set for positives and negatives
+    # P, N = set(p), set(n)
 
-    # 3. If there is at least 1 zero, check if the P and N sets have nums that are opposite
-    if z: 
-        for i in P:
-            if -1*(i) in N:
-                res.add((-1*(i), 0, i))
+    # # 3. If there is at least 1 zero, check if the P and N sets have nums that are opposite
+    # if z: 
+    #     for i in P:
+    #         if -1*(i) in N:
+    #             res.add((-1*(i), 0, i))
 
-    # If z has more than 3 zeros, then add the 3 zeros into the set
-    if len(z) >= 3:
-        res.add((0, 0, 0))
+    # # If z has more than 3 zeros, then add the 3 zeros into the set
+    # if len(z) >= 3:
+    #     res.add((0, 0, 0))
 
-    # 4. Iterate through P and find 2 nums, check if there exists a negate num equals to the sum of the two positive nums. 
-    for i in range(0, len(p)): 
-        for j in range(i + 1, len(p)):
-            sum = (p[i] + p[j])
-            if -1 * sum in N:
-                res.add(tuple(sorted([p[i], p[j], -1*sum])))
+    # # 4. Iterate through P and find 2 nums, check if there exists a negate num equals to the sum of the two positive nums. 
+    # for i in range(0, len(p)): 
+    #     for j in range(i + 1, len(p)):
+    #         sum = (p[i] + p[j])
+    #         if -1 * sum in N:
+    #             res.add(tuple(sorted([p[i], p[j], -1*sum])))
 
-    # 5. Iterate through N and find 2 nums, check if there exists a positive num equals to the sum of the two negative nums. 
-    for i in range(0, len(n) - 1): 
-        for j in range(i + 1, len(n)):
-            sum = (n[i] + n[j])
-            if -1 * sum in P:
-                res.add(tuple(sorted([n[i], n[j], -1*sum])))
+    # # 5. Iterate through N and find 2 nums, check if there exists a positive num equals to the sum of the two negative nums. 
+    # for i in range(0, len(n) - 1): 
+    #     for j in range(i + 1, len(n)):
+    #         sum = (n[i] + n[j])
+    #         if -1 * sum in P:
+    #             res.add(tuple(sorted([n[i], n[j], -1*sum])))
+
+    # return res
+
+    res = []
+    nums = sorted(nums)
+
+    for i in range(0, len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue  # skip duplicate value for `i`
+
+        target = -1 * nums[i]
+        front = i + 1
+        back = len(nums) - 1
+        while front < back:
+            sum = nums[front] + nums[back]
+
+            if sum < target:
+                front += 1
+            elif sum > target:
+                back -= 1
+            else:
+                triplet = [nums[i], nums[front], nums[back]]
+                res.append(triplet)
+
+                while front < back and nums[front] == triplet[1]:
+                    front += 1
+
+                while front < back and nums[back] == triplet[2]:
+                    back -= 1
 
     return res
+    
+
     
