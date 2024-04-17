@@ -99,12 +99,13 @@ def threeSum(self, nums):
                 triplet = [nums[i], nums[front], nums[back]]
                 res.append(triplet)
 
-                while front < back and nums[front] == triplet[1]:
+                front += 1
+                back -= 1
+                while front < back and nums[front] == nums[front - 1]:
                     front += 1
 
-                while front < back and nums[back] == triplet[2]:
+                while front < back and nums[back] == nums[back + 1]:
                     back -= 1
-
     return res
     
 
