@@ -40,6 +40,7 @@ class Solution {
         int r = nums.length - 1;
         while (l < r) {
             int mid = l + (r - l) / 2;
+            // This is the key
             if (nums[mid] >= target) {
                 r = mid - 1;
             } else {
@@ -59,6 +60,7 @@ class Solution {
         int r = nums.length - 1;
         while (l < r) {
             int mid = l + (r - l) / 2;
+            // This is the key
             if (nums[mid] <= target) {
                 l = mid + 1;
             } else {
