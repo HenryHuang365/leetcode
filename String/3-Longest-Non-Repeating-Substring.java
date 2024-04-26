@@ -51,20 +51,19 @@ class Solution {
     }
 
     public int lengthOfLongestSubstring2(String s) {
-        int n = s.length();
-        int maxLength = 0;
-        int[] charIndex = new int[128];
-        Arrays.fill(charIndex, -1);
+        int max = 0;
+        int[] charArrays = new int[128];
+        Arrays.fill(charArrays, -1);
         int left = 0;
 
-        for (int right = 0; right < n; right++) {
-            if (charIndex[s.charAt(right)] >= left) {
-                left = charIndex[s.charAt(right)] + 1;
+        for (int right = 0; right < s.length(); right++) {
+            if (charArrays[s.charAt(right)] >= left) {
+                left = charArrays[s.charAt(right)] + 1;
             }
-            charIndex[s.charAt(right)] = right;
-            maxLength = Math.max(maxLength, right - left + 1);
-        }
 
-        return maxLength;
+            charArrays[s.charAt(right)] = right;
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
     }
 }
