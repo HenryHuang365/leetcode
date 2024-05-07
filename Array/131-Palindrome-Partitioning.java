@@ -42,13 +42,9 @@ class Solution {
         }
     }
 
-    public boolean isPalindrome(String str, int low, int high) {
-        while (low < high) {
-            if (str.charAt(low) != str.charAt(high)) {
-                return false;
-            }
-            low++;
-            high--;
+    public boolean isPalindrome(String s, int start, int end) {
+        while (start < end) {
+            if (s.charAt(start++) != s.charAt(end--)) return false;
         }
         return true;
     }
