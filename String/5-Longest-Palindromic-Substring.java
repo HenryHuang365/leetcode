@@ -23,9 +23,9 @@ class Solution {
         String res = "";
         int max = 0;
         for (int i = 0; i < s.length(); i++) {
+            // odd
             int l = i;
             int r = i;
-            // odd
             while (l >= 0 && r <= s.length() - 1 && s.charAt(l) == s.charAt(r)) {
                 if (r - l + 1 > max) {
                     res = s.substring(l, r + 1);
