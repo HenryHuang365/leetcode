@@ -3,6 +3,8 @@ class Solution {
         int lenHaystack = haystack.length();
         int lenNeedle = needle.length();
 
+        // This if statement is to return a result faster.
+        // It will still work if it is removed.
         if (lenHaystack < lenNeedle) {
             return -1;
         }
