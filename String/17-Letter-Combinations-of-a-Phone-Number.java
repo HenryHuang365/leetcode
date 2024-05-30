@@ -22,10 +22,44 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> list = new ArrayList<>();
+
+        if (digits == null || digits.length() == 0) {
+            return list;
+        }
+
+        Map<Character, String> digits_letter = new HashMap<>();
+        digits_letter.put('2', "abc");
+        digits_letter.put('3', "def");
+        digits_letter.put('4', "ghi");
+        digits_letter.put('5', "jkl");
+        digits_letter.put('6', "mno");
+        digits_letter.put('7', "pqrs");
+        digits_letter.put('8', "tuv");
+        digits_letter.put('9', "wxyz");
+
+        backtrack(digits, 0, new StringBuilder(), list, digits_letter);
         return list;
+    }
+
+    public void backtrack(String digits, int idx, StringBuilder comb, List<String> list,
+            Map<Character, String> digits_letter) {
+        if (idx == digits.length()) {
+            list.add(comb.toString());
+            return;
+        }
+
+        String letters = digits_letter.get(digits.charAt(idx));
+
+        for (int i = 0; i < letters.length(); i++) {
+            comb.append(letters.charAt(i));
+            backtrack(digits, idx + 1, comb, list, digits_letter);
+            comb.deleteCharAt(comb.length() - 1);
+        }
     }
 }
