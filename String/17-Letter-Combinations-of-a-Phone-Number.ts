@@ -15,19 +15,18 @@ function letterCombinations(digits: string): string[] {
     };
 
     const res: string[] = [];
-    
+
     function backtrack(idx, comb: string) {
         if (idx == digits.length) {
             res.push(comb);
             return;
         }
 
-        const letters = digits_letters[digits[idx]]
+        const letters = digits_letters[digits[idx]];
 
         for (const letter of letters) {
             backtrack(idx + 1, comb + letter);
         }
-        
     }
 
     backtrack(0, "");

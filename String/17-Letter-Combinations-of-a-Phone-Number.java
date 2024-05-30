@@ -28,12 +28,12 @@ import java.util.HashMap;
 class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> list = new ArrayList<>();
-
-        if (digits == null || digits.length() == 0) {
+        if (digits.length() == 0 || digits == null) {
             return list;
         }
 
         Map<Character, String> digits_letter = new HashMap<>();
+
         digits_letter.put('2', "abc");
         digits_letter.put('3', "def");
         digits_letter.put('4', "ghi");
@@ -56,8 +56,8 @@ class Solution {
 
         String letters = digits_letter.get(digits.charAt(idx));
 
-        for (int i = 0; i < letters.length(); i++) {
-            comb.append(letters.charAt(i));
+        for (char letter : letters.toCharArray()) {
+            comb.append(letter);
             backtrack(digits, idx + 1, comb, list, digits_letter);
             comb.deleteCharAt(comb.length() - 1);
         }
