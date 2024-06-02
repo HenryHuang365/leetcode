@@ -22,3 +22,9 @@
 
 // 1 <= s.length, t.length <= 5 * 104
 // s and t consist of lowercase English letters.
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        return false;
+    }
+}
