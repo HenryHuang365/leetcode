@@ -37,8 +37,12 @@ class Solution {
             countT.put(t.charAt(i), countT.getOrDefault(t.charAt(i), 0) + 1);
         }
 
+        if (!countS.keySet().equals(countT.keySet())) {
+            return false;
+        }
+
         for (char c : countS.keySet()) {
-            if (!countS.get(c).equals(countT.get(c)) || !countT.containsKey(c)) {
+            if (!countS.get(c).equals(countT.get(c))) {
                 return false;
             }
         }
