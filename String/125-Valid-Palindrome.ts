@@ -17,7 +17,7 @@ function isPalindrome1(s: String): boolean {
             right--;
         }
 
-        if (s[left].toLowerCase != s[right].toLowerCase) {
+        if (s[left].toLowerCase() !== s[right].toLowerCase()) {
             return false;
         }
 
