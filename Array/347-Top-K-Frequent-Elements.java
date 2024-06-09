@@ -18,10 +18,43 @@
 
 // Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        int[] list = new int[] {};
+        // define a bucket array with size fixed by the length of the input array nums
+        // List<Integer>[] has the same syntax as int[], the type next to the [] is the element type inside [].
+        @SuppressWarnings("unchecked")
+        List<Integer>[] bucket = new List[nums.length + 1];
+        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
 
-        return list;
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        for (int key : frequencyMap.keySet()) {
+            int frequency = frequencyMap.get(key);
+            if (bucket[frequency] == null) {
+                bucket[frequency] = new ArrayList<>();
+            }
+
+            bucket[frequency].add(key);
+        }
+
+        int[] res = new int[k];
+        int resIndex = 0;
+
+        for (int i = bucket.length - 1; i >= 0 && resIndex < k; i--) {
+            if (bucket[i] != null) {
+                for (int n : bucket[i]) {
+                    if (resIndex < k) {
+                        res[resIndex++] = n;
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 }
