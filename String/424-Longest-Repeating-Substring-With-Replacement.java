@@ -21,21 +21,23 @@
 
 class Solution {
     public int characterReplacement(String s, int k) {
-        int[] arr = new int[26];
-        
-        int ans = 0;
+        int[] list = new int[26];
+        int res = 0;
         int max = 0;
-        int i = 0;
-        for (int j = 0; j < s.length(); j++) {
-            arr[s.charAt(j) - 'A']++;
-            max = Math.max(max, arr[s.charAt(j) - 'A']);
+        int l = 0;
 
-            if (j - i + 1 - max > k) {
-                arr[s.charAt(i) - 'A']--;
-                i++;
+        for (int r = 0; r < s.length(); r++) {
+            list[s.charAt(r) - 'A']++;
+            max = Math.max(max, list[s.charAt(r) - 'A']);
+
+            while ((r - l + 1) - max > k) {
+                list[s.charAt(l) - 'A']--;
+                l++;
             }
-            ans = Math.max(ans, j - i + 1);
+
+            res = Math.max(max, r - l + 1);
         }
-        return ans;
+
+        return res;
     }
 }
