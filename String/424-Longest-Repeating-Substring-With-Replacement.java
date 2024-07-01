@@ -30,6 +30,11 @@ class Solution {
             list[s.charAt(r) - 'A']++;
             max = Math.max(max, list[s.charAt(r) - 'A']);
 
+            // The key to solve this problem is that we need to ensure
+            // the largest number of letters need to be changed in this sliding window is
+            // less than k.
+            // This is because we should not change the letters that have the most
+            // occurances.
             while ((r - l + 1) - max > k) {
                 list[s.charAt(l) - 'A']--;
                 l++;
