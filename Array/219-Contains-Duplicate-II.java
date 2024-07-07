@@ -3,19 +3,22 @@ import java.util.HashSet;
 
 class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
-        Set<Integer> windowSet = new HashSet<>();
+        Set<Integer> subSet = new HashSet<>();
         int l = 0;
 
         for (int r = 0; r < nums.length; r++) {
             if (Math.abs(l - r) > k) {
-                windowSet.remove(nums[l]);
+                subSet.remove(nums[l]);
                 l++;
             }
-            if (windowSet.contains(nums[r])) {
+            // Mistake: I used nums[l] == nums[r] to determine if we can return true.
+            // Note that i, j can be any number in the window, while l and r are the start
+            // and end of the window.
+            if (subSet.contains(nums[r])) {
                 return true;
             }
 
-            windowSet.add(nums[r]);
+            subSet.add(nums[r]);
         }
         return false;
     }
