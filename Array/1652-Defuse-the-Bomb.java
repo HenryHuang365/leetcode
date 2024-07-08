@@ -1,9 +1,9 @@
 class Solution {
     public int[] decrypt(int[] code, int k) {
         int[] list = new int[code.length];
-        if (k == 0) {
+        if (k == 0)
             return list;
-        }
+
         int start = 1;
         int end = k;
 
@@ -12,8 +12,10 @@ class Solution {
             start = code.length - k;
             end = code.length - 1;
         }
+
         int sum = 0;
-        for (int i = start; i < k; i++) {
+        // always remember that start and end are the exact limits for the window
+        for (int i = start; i <= end; i++) {
             sum += code[i];
         }
 
@@ -23,7 +25,6 @@ class Solution {
             sum = sum + code[end % code.length] - code[start % code.length];
             start++;
         }
-
         return list;
     }
 }
