@@ -27,8 +27,8 @@ class Solution {
         int[] s2Count = new int[26];
 
         for (int i = 0; i < s1.length(); i++) {
-            s1Count[s1.charAt(i) - 'A']++;
-            s2Count[s2.charAt(i) - 'A']++;
+            s1Count[s1.charAt(i) - 'a']++;
+            s2Count[s2.charAt(i) - 'a']++;
         }
 
         int match = 0;
@@ -44,17 +44,17 @@ class Solution {
                 return true;
             }
 
-            s2Count[s2.charAt(r) - 'A']++;
-            if (s2Count[s2.charAt(r) - 'A'] == s1Count[s2.charAt(r) - 'A']) {
+            s2Count[s2.charAt(r) - 'a']++;
+            if (s2Count[s2.charAt(r) - 'a'] == s1Count[s2.charAt(r) - 'a']) {
                 match++;
-            } else if (s2Count[s2.charAt(r) - 'A'] - 1 == s1Count[s2.charAt(r) - 'A']) {
+            } else if (s2Count[s2.charAt(r) - 'a'] - 1 == s1Count[s2.charAt(r) - 'a']) {
                 match--;
             }
 
-            s2Count[s2.charAt(l) - 'A']--;
-            if (s2Count[s2.charAt(l) - 'A'] == s1Count[s2.charAt(l) - 'A']) {
+            s2Count[s2.charAt(l) - 'a']--;
+            if (s2Count[s2.charAt(l) - 'a'] == s1Count[s2.charAt(l) - 'a']) {
                 match++;
-            } else if (s2Count[s2.charAt(l) - 'A'] + 1 == s1Count[s2.charAt(l) - 'A']) {
+            } else if (s2Count[s2.charAt(l) - 'a'] + 1 == s1Count[s2.charAt(l) - 'a']) {
                 match--;
             }
 

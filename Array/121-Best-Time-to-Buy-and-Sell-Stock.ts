@@ -5,7 +5,6 @@ function maxProfit(prices: number[]): number {
 
     while (r < prices.length) {
         const value = prices[r] - prices[l];
-
         if (value > 0) {
             maxValue = Math.max(maxValue, value);
         } else {

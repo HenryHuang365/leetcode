@@ -21,28 +21,28 @@
 
 class Solution {
     public int characterReplacement(String s, int k) {
-        int[] list = new int[26];
-        int res = 0;
-        int max = 0;
+        int maxLength = 0;
+        int maxCount = 0;
+        int[] count = new int[26];
         int l = 0;
 
         for (int r = 0; r < s.length(); r++) {
-            list[s.charAt(r) - 'A']++;
-            max = Math.max(max, list[s.charAt(r) - 'A']);
+            count[s.charAt(r) - 'A']++;
+            maxCount = Math.max(maxCount, count[s.charAt(r) - 'A']);
 
             // The key to solve this problem is that we need to ensure
             // the largest number of letters need to be changed in this sliding window is
             // less than k.
             // This is because we should not change the letters that have the most
             // occurances.
-            while ((r - l + 1) - max > k) {
-                list[s.charAt(l) - 'A']--;
+            while ((r - l + 1) - maxCount > k) {
+                count[s.charAt(l) - 'A']--;
                 l++;
             }
 
-            res = Math.max(max, r - l + 1);
+            maxLength = Math.max(maxLength, r - l + 1);
         }
 
-        return res;
+        return maxLength;
     }
 }

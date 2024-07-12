@@ -31,46 +31,30 @@ import java.util.Arrays;
 
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        // int max = 0;
-        // Set<Character> charSet = new HashSet<>();
-        // int left = 0;
-
-        // for (int right = 0; right < s.length(); right++) {
-        //     if (!charSet.contains(s.charAt(right))) {
-        //         charSet.add(s.charAt(right));
-        //         max = Math.max(max, right - left + 1);
-        //     } else {
-        //         while (charSet.contains(s.charAt(right))) {
-        //             charSet.remove(s.charAt(left));
-        //             left++;
-        //         }
-        //         charSet.add(s.charAt(right));
-        //     }
-        // }
-        // return max;
-
-        int maxSubstring = 0;
+        int maxSubtring = 0;
         Set<Character> subSet = new HashSet<>();
 
         int l = 0;
+
         for (int r = 0; r < s.length(); r++) {
             if (!subSet.contains(s.charAt(r))) {
                 subSet.add(s.charAt(r));
-                maxSubstring = Math.max(maxSubstring, r - l + 1);
+                maxSubtring = Math.max(maxSubtring, r - l + 1);
             } else {
                 while (l <= r && subSet.contains(s.charAt(r))) {
                     subSet.remove(s.charAt(l));
                     l++;
                 }
-                // Mistake: Always remember to add the next character. 
+                // Mistake: Always remember to add the next character.
                 subSet.add(s.charAt(r));
 
-                // here you do not have to update the max, 
-                // as the left poiner moving toward right is definite unchanging or reducing the max. 
+                // here you do not have to update the max,
+                // as the left poiner moving toward right is definite unchanging or reducing the
+                // max.
             }
         }
 
-        return maxSubstring;
+        return maxSubtring;
     }
 
     public int lengthOfLongestSubstring2(String s) {
