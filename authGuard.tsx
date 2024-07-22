@@ -67,16 +67,12 @@ export class KCManager {
     clientId: process.env.NEXT_PUBLIC_KC_CLIENT_ID ?? "",
   });
 
-  private sessionStartTime = 0; // Add this line
-  private sessionDuration = 120; // 5 minutes in seconds
-
   constructor() {
     if (KCManager.instance) {
       return KCManager.instance;
     }
 
     KCManager.instance = this;
-    this.sessionStartTime = Date.now() / 1000;
 
     this.keycloak
       .init({
@@ -95,47 +91,23 @@ export class KCManager {
   }
 
   private async keepFresh() {
-    const sleepPeriod = 1000 * 30;
-    try {
-      const tokenExpiryTime = KCManager.instance.keycloak.tokenParsed?.exp;
-      const currentTime = Date.now() / 1000;
-      const sessionExpiryTime = this.sessionStartTime + this.sessionDuration;
-      console.log("This is the current time: ", currentTime);
-      console.log("This is the sessionExpiryTime: ", sessionExpiryTime);
-
-      if (currentTime >= sessionExpiryTime) {
-        console.log('Session duration time expired, redirecting to login...');
-        this.logoutAndRedirect(); // Redirect to login
-      }
-
-      if (tokenExpiryTime && tokenExpiryTime - sleepPeriod < currentTime) {
-        console.log('Attempting to refresh token...');
-        await KCManager.instance.keycloak.updateToken(-1);
-        console.log('Token refreshed successfully');
-        KCManager.instance.dispatch(
-          setToken(KCManager.instance.keycloak.token ?? null)
-        );
-        KCManager.instance.dispatch(
-          setRefreshToken(KCManager.instance.keycloak.refreshToken ?? null)
-        );
-        await this.fetchUser();        
-      } else {
-        console.log(`Token not yet expired: Expiry time: ${tokenExpiryTime}, Current time: ${currentTime}`);
-      }
-    
-    } catch (error) {
-      console.error('Error while refreshing token', error);
+    const sleepPeriod = 1000 * 55;
+    if (
+      KCManager.instance.keycloak.tokenParsed?.exp &&
+      KCManager.instance.keycloak.tokenParsed.exp - sleepPeriod <
+        Date.now() / 1000
+    ) {
+      await KCManager.instance.keycloak.updateToken(-1);
+      KCManager.instance.dispatch(
+        setToken(KCManager.instance.keycloak.token ?? null)
+      );
+      KCManager.instance.dispatch(
+        setRefreshToken(KCManager.instance.keycloak.refreshToken ?? null)
+      );
+      this.fetchUser();
     }
     await new Promise((resolve) => setTimeout(resolve, sleepPeriod));
     KCManager.instance.keepFresh();
-  }
-
-  public logoutAndRedirect() {
-    this.keycloak.logout();
-    this.dispatch(setToken(null));
-    this.dispatch(setRefreshToken(null));
-    this.dispatch(setAuthUser(null));
-    this.keycloak.login();
   }
 
   public async fetchUser(): Promise<AuthUser> {
