@@ -15,6 +15,7 @@ import { Loaders } from "@/components/ui/loaders";
 import { setKeycloakInitialised } from "@/lib/auth/keycloakSlice";
 import { apiSlice } from "@/lib/api/apiSlice";
 import { User } from "@/lib/user/user";
+import { useEffect } from "react";
 
 interface AuthContextType {
   signout: () => void;
@@ -25,10 +26,27 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
+function isTokenValid(token: string | null): boolean {
+  if (!token) return false;
+  const tokenPayload = JSON.parse(atob(token.split(".")[1]));
+  const expiryTime = tokenPayload.exp;
+  const currentTime = Math.floor(Date.now() / 1000);
+  return expiryTime > currentTime;
+}
+
 export function AuthGuard({ children }: PropsWithChildren): ReactNode {
   const [keycloakManager] = useState<KCManager>(new KCManager());
 
   const authToken = useAppSelector(selectToken);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  useEffect(() => {
+    const tokenIsValid = isTokenValid(authToken);
+    if (!tokenIsValid) {
+      keycloakManager.logoutAndRedirect;
+    }
+    setIsAuthenticated(tokenIsValid);
+  }, [authToken, keycloakManager]);
 
   const handleSignout = async () => {
     await keycloakManager.logout();
@@ -41,10 +59,9 @@ export function AuthGuard({ children }: PropsWithChildren): ReactNode {
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {authToken !== null ? children : <Loading />}
+      {isAuthenticated ? children : <Loading />}
     </AuthContext.Provider>
   );
-  return children;
 }
 
 function Loading() {
@@ -67,16 +84,20 @@ export class KCManager {
     clientId: process.env.NEXT_PUBLIC_KC_CLIENT_ID ?? "",
   });
 
+  private sessionStartTime = 0; // Add this line
+  private sessionDuration = 432000; // 5 days in seconds
+
   constructor() {
     if (KCManager.instance) {
       return KCManager.instance;
     }
 
     KCManager.instance = this;
+    this.sessionStartTime = Date.now() / 1000;
 
     this.keycloak
       .init({
-        onLoad: "check-sso",
+        onLoad: "login-required",
         silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`,
         token: this.authToken ?? undefined,
         refreshToken: this.refreshToken ?? undefined,
@@ -92,22 +113,30 @@ export class KCManager {
 
   private async keepFresh() {
     const sleepPeriod = 1000 * 55;
-    if (
-      KCManager.instance.keycloak.tokenParsed?.exp &&
-      KCManager.instance.keycloak.tokenParsed.exp - sleepPeriod <
-        Date.now() / 1000
-    ) {
-      await KCManager.instance.keycloak.updateToken(-1);
-      KCManager.instance.dispatch(
+    try {
+      console.log("Attempting to refresh token...");
+      await KCManager.instance.keycloak.updateToken(70);
+      console.log("Token refreshed successfully");
+      await KCManager.instance.dispatch(
         setToken(KCManager.instance.keycloak.token ?? null)
       );
-      KCManager.instance.dispatch(
+      await KCManager.instance.dispatch(
         setRefreshToken(KCManager.instance.keycloak.refreshToken ?? null)
       );
-      this.fetchUser();
+      await this.fetchUser();
+    } catch (refreshError) {
+      console.error("Token refresh failed", refreshError);
+      this.logoutAndRedirect();
     }
     await new Promise((resolve) => setTimeout(resolve, sleepPeriod));
     KCManager.instance.keepFresh();
+  }
+
+  public logoutAndRedirect() {
+    this.dispatch(setToken(null));
+    this.dispatch(setRefreshToken(null));
+    this.dispatch(setAuthUser(null));
+    this.keycloak.login();
   }
 
   public async fetchUser(): Promise<AuthUser> {
@@ -129,12 +158,12 @@ export class KCManager {
   public async login() {
     await KCManager.instance.keycloak.login();
     KCManager.instance.dispatch(
-      setToken(KCManager.instance.keycloak.token ?? null)
+      await setToken(KCManager.instance.keycloak.token ?? null)
     );
     KCManager.instance.dispatch(
-      setRefreshToken(KCManager.instance.keycloak.refreshToken ?? null)
+      await setRefreshToken(KCManager.instance.keycloak.refreshToken ?? null)
     );
-    KCManager.instance.fetchUser();
+    await KCManager.instance.fetchUser();
   }
 
   public async logout() {

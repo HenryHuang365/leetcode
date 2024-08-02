@@ -34,6 +34,8 @@ import {
   ACPermissions,
   ControlledAccess,
 } from "@/components/access-control/controlled-access";
+import * as moment from "moment";
+import "moment-timezone";
 
 export interface DeviceDetailsSectionProps {
   deviceId: string;
@@ -143,23 +145,6 @@ function DeviceDetailsForm({
     });
   }
 
-  const formatTimestamp = (timestamp: string) => {
-    if (timestamp === "-") return timestamp;
-    const date = new Date(timestamp);
-    
-    const AEST_OFFSET_HOURS = 10;
-    const aestTime = new Date(date.getTime() + AEST_OFFSET_HOURS * 60 * 60 * 1000);
-    
-    const day = String(aestTime.getUTCDate()).padStart(2, '0');
-    const month = String(aestTime.getUTCMonth() + 1).padStart(2, '0');
-    const year = aestTime.getUTCFullYear();
-    const hours = String(aestTime.getUTCHours()).padStart(2, '0');
-    const minutes = String(aestTime.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(aestTime.getUTCSeconds()).padStart(2, '0');
-  
-    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds} (GMT+10)`;
-  };
-
   return fetchingDevice || fetchingMeasurment ? (
     <Loaders.indicator size="medium" layout="row" />
   ) : (
@@ -194,7 +179,9 @@ function DeviceDetailsForm({
           )}
         />
         <DataRow title={t(TranslationKeys.deviceDataRowTitleLastMeasuredAt)}>
-          {formatTimestamp(measurement?.data[0]?.timestamp ?? "-")}
+          {measurement?.data[0]?.timestamp
+            ? formatTimestamp(measurement?.data[0]?.timestamp)
+            : "-"}
         </DataRow>
         {measurement?.parameters.map((p, index) => (
           <DataRow key={index} title={`${p.alias} (${p.unit})`}>
@@ -240,3 +227,13 @@ function DeviceDetailsForm({
     </Form>
   );
 }
+
+export const formatTimestamp = (timestamp: string) => {
+  const userTimezone = moment.tz.guess();
+  const localTime = moment.utc(timestamp).tz(userTimezone);
+  const formattedTime = `${localTime.format(
+    "DD/MM/YYYY HH:mm:ss"
+  )} (GMT${localTime.format("Z")})`;
+
+  return formattedTime;
+};
