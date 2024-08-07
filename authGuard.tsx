@@ -84,16 +84,12 @@ export class KCManager {
     clientId: process.env.NEXT_PUBLIC_KC_CLIENT_ID ?? "",
   });
 
-  private sessionStartTime = 0; // Add this line
-  private sessionDuration = 432000; // 5 days in seconds
-
   constructor() {
     if (KCManager.instance) {
       return KCManager.instance;
     }
 
     KCManager.instance = this;
-    this.sessionStartTime = Date.now() / 1000;
 
     this.keycloak
       .init({
@@ -112,11 +108,23 @@ export class KCManager {
   }
 
   private async keepFresh() {
-    const sleepPeriod = 1000 * 55;
+    const sleepPeriod = 1000 * 60; // Time interval to check token validity 60 seconds
+    const refreshedTokenExpiryTime =
+      KCManager.instance.keycloak.refreshTokenParsed?.exp; // Refreshed token expiry time/session duration
+    const currentTime = Date.now() / 1000; // current time
+
+    if (
+      refreshedTokenExpiryTime &&
+      refreshedTokenExpiryTime - currentTime < sleepPeriod / 1000
+    ) {
+      // This if condition is checking if the refreshed token has less than 60 seconds until it is expired
+      // This is important to ensure the access token will not expired before the next check
+      this.logout(); // Logout the user if refreshed token is expired as session finished
+      return;
+    }
     try {
-      console.log("Attempting to refresh token...");
+      // Retrieve a new access token within 70 second before the old token is expired
       await KCManager.instance.keycloak.updateToken(70);
-      console.log("Token refreshed successfully");
       await KCManager.instance.dispatch(
         setToken(KCManager.instance.keycloak.token ?? null)
       );
@@ -126,7 +134,6 @@ export class KCManager {
       await this.fetchUser();
     } catch (refreshError) {
       console.error("Token refresh failed", refreshError);
-      this.logoutAndRedirect();
     }
     await new Promise((resolve) => setTimeout(resolve, sleepPeriod));
     KCManager.instance.keepFresh();
