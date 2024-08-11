@@ -1,10 +1,2 @@
 .DS_Store
 .vscode/
-*
-
-# Re-include specific file types
-!*.cpp
-!*.h
-
-# Re-include directories containing the source files
-!*/
