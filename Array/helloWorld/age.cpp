@@ -3,7 +3,8 @@
 
 int main()
 {
-    std::cout << getAge() << std::endl;
+    std::cout << getAge() << "\n"
+              << std::endl;
 }
 
 int getAge()
