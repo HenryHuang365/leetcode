@@ -13,7 +13,7 @@
 
 import java.util.Map;
 import java.util.HashMap;
-class TwoRepeated {
+class Solution {
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         Map<Character, Integer> cnt = new HashMap<>();
         int ans = 0;
@@ -30,5 +30,11 @@ class TwoRepeated {
             ans = Math.max(ans, j - i + 1);
         }
         return ans;
-    }    
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        System.out.println("Output: " + solution.lengthOfLongestSubstringTwoDistinct("eceba"));
+    }
 }
