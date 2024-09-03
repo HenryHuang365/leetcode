@@ -22,38 +22,30 @@ import java.util.Map;
 import java.util.HashMap;
 class LeastKCharacters {
     public int longestSubstring(String s, int k) {
-        return longestSubstringHelper(s, 0, s.length(), k);
+        return helper(s, k, 0, s.length());
     }
-
-    private int longestSubstringHelper(String s, int start, int end, int k) {
-        if (end - start < k) {
-            return 0; // 子串长度小于 k 不可能有符合条件的子串
-        }
-
-        // 统计当前子串的字符频率
+    public int helper(String s, int k, int start, int end) {
+        if (end - start < k) return 0;
         Map<Character, Integer> counts = new HashMap<>();
         for (int i = start; i < end; i++) {
             counts.put(s.charAt(i), counts.getOrDefault(s.charAt(i), 0) + 1);
         }
 
-        // 找到第一个频率小于 k 的字符
         for (int i = start; i < end; i++) {
             if (counts.get(s.charAt(i)) < k) {
-                // 以该字符为分割点，递归地计算两边的最大长度
-                int leftPart = longestSubstringHelper(s, start, i, k);
-                int rightPart = longestSubstringHelper(s, i + 1, end, k);
-                return Math.max(leftPart, rightPart);
+                int leftCounts = helper(s, k, start, i);
+                int rightCounts = helper(s, k, i + 1, end);
+                return Math.max(leftCounts, rightCounts);
             }
         }
 
-        // 如果所有字符的频率都满足要求，则直接返回当前子串长度
         return end - start;
     }
 
     public static void main(String[] args) {
         LeastKCharacters leastKCharacters = new LeastKCharacters();
 
-        System.out.println("Output: " + leastKCharacters.longestSubstring("aaabb", 3));
+        System.out.println("Output: " + leastKCharacters.longestSubstring("ababacb", 3));
         System.out.println("Output: " + leastKCharacters.longestSubstring("ababbc", 2));
     }
 }
