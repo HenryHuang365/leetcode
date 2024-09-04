@@ -24,8 +24,9 @@ class LeastKCharacters {
     public int longestSubstring(String s, int k) {
         return helper(s, k, 0, s.length());
     }
-    public int helper(String s, int k, int start, int end) {
-        if (end - start < k) return 0;
+
+    public int helper (String s, int k, int start, int end) {
+        if (end - start < k) return 0;        
         Map<Character, Integer> counts = new HashMap<>();
         for (int i = start; i < end; i++) {
             counts.put(s.charAt(i), counts.getOrDefault(s.charAt(i), 0) + 1);
@@ -33,9 +34,9 @@ class LeastKCharacters {
 
         for (int i = start; i < end; i++) {
             if (counts.get(s.charAt(i)) < k) {
-                int leftCounts = helper(s, k, start, i);
-                int rightCounts = helper(s, k, i + 1, end);
-                return Math.max(leftCounts, rightCounts);
+                int leftLength = helper(s, k, start, i);
+                int rightLength = helper(s, k, i + 1, end);
+                return Math.max(leftLength, rightLength);
             }
         }
 
@@ -45,7 +46,7 @@ class LeastKCharacters {
     public static void main(String[] args) {
         LeastKCharacters leastKCharacters = new LeastKCharacters();
 
-        System.out.println("Output: " + leastKCharacters.longestSubstring("ababacb", 3));
+        System.out.println("Output: " + leastKCharacters.longestSubstring("bbaaacbd", 3));
         System.out.println("Output: " + leastKCharacters.longestSubstring("ababbc", 2));
     }
 }
