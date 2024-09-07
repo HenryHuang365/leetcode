@@ -45,19 +45,16 @@ class Solution {
         }
     }
 
-    public void preorder(TreeNode node, List<Integer> array) {
-        if (node == null) {
-            return;
-        }
-
-        array.add(node.val);
-        preorder(node.left, array);
-        preorder(node.right, array);
+    public void preorder(List<Integer> list, TreeNode root) {
+        if (root == null) return;
+        list.add(root.val);
+        preorder(list, root.left);
+        preorder(list, root.right);
     }
 
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> array = new ArrayList<>();
-        preorder(root, array);
-        return array;
+        List<Integer> list = new ArrayList<>();
+        preorder(list, root);
+        return list;
     }
 }
