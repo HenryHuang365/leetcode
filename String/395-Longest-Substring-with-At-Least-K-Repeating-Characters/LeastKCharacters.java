@@ -1,3 +1,4 @@
+
 /*
 395-Longest-Substring-with-At-Least-K-Repeating-Characters
 
@@ -20,13 +21,15 @@ Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b
 */
 import java.util.Map;
 import java.util.HashMap;
+
 class LeastKCharacters {
     public int longestSubstring(String s, int k) {
         return helper(s, k, 0, s.length());
     }
 
-    public int helper (String s, int k, int start, int end) {
-        if (end - start < k) return 0;        
+    public int helper(String s, int k, int start, int end) {
+        if (end - start < k)
+            return 0;
         Map<Character, Integer> counts = new HashMap<>();
         for (int i = start; i < end; i++) {
             counts.put(s.charAt(i), counts.getOrDefault(s.charAt(i), 0) + 1);
