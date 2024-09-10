@@ -5,6 +5,28 @@ public class Solution {
     public int solution(String[] A) {
         int N = A.length;
         int M = A[0].length();
+
+        // Handle special case: if there is only one row
+        if (N == 1) {
+            String[] zeros = A[0].split("1");
+
+            // Convert each segment into its length
+            int[] lengths = new int[zeros.length];
+            for (int i = 0; i < zeros.length; i++) {
+                lengths[i] = zeros[i].length();
+            }
+
+            // Sort the lengths in descending order
+            Arrays.sort(lengths);
+
+            // Find the two longest segments
+            int largest = lengths.length >= 1 ? lengths[lengths.length - 1] : 0;
+            int secondLargest = lengths.length >= 2 ? lengths[lengths.length - 2] : 0;
+
+            // Return the sum of the two longest segments
+            return largest + secondLargest;
+        }     
+
         int[][] dp = new int[N][M];  // DP array to store the maximum width of '0's up to each cell
 
         // Step 1: Fill the DP table with the maximum width of '0's at each cell
@@ -17,7 +39,6 @@ public class Solution {
         }
 
         // Step 2: Calculate maximum rectangular areas using heights of continuous '0's
-        // int maxTotalArea = 0;
         List<int[]> rectangles = new ArrayList<>();  // Store each rectangle as {top-left-row, top-left-col, bottom-right-row, bottom-right-col}
 
         for (int i = 0; i < N; i++) {
@@ -26,8 +47,7 @@ public class Solution {
                     int width = dp[i][j];
                     for (int k = i; k >= 0; k--) {
                         width = Math.min(width, dp[k][j]);  // Shrink the width as we go up
-                        if (width == 0) break;
-                        // int height = i - k + 1;
+                        if (width == 0) break;                        
                         rectangles.add(new int[]{k, j - width + 1, i, j});
                     }
                 }
