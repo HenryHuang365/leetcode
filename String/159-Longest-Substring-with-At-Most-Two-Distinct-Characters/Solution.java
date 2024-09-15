@@ -13,23 +13,26 @@
 
 import java.util.Map;
 import java.util.HashMap;
+
 class Solution {
     public int lengthOfLongestSubstringTwoDistinct(String s) {
-        Map<Character, Integer> cnt = new HashMap<>();
-        int ans = 0;
-        int i = 0;
-        for (int j = 0; j < s.length(); j++) {
-            Character currChar = s.charAt(j);
-            cnt.put(currChar, cnt.getOrDefault(currChar, 0) + 1);
-            while (cnt.size() > 2) {
-                Character leftChar = s.charAt(i);
-                cnt.put(leftChar, cnt.get(leftChar) - 1);
-                if (cnt.get(leftChar) == 0) cnt.remove(leftChar);
-                i++;
+        Map<Character, Integer> counts = new HashMap<>();
+        int res = 0;
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            Character rightChar = s.charAt(right);
+            counts.put(rightChar, counts.getOrDefault(rightChar, 0) + 1);
+            while (counts.size() > 2) {
+                Character leftChar = s.charAt(left);
+                counts.put(leftChar, counts.getOrDefault(leftChar, 0) - 1);
+                if (counts.get(leftChar) == 0)
+                    counts.remove(leftChar);
+                left++;
             }
-            ans = Math.max(ans, j - i + 1);
+
+            res = Math.max(res, right - left + 1);
         }
-        return ans;
+        return res;
     }
 
     public static void main(String[] args) {
