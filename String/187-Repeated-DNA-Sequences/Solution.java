@@ -1,0 +1,53 @@
+
+/**
+ * 187. Repeated DNA Sequences
+ * 
+ * The DNA sequence is composed of a series of nucleotides abbreviated as 'A',
+ * 'C', 'G', and 'T'.
+ * For example, "ACGAATTCCG" is a DNA sequence.
+ * When studying DNA, it is useful to identify repeated sequences within the
+ * DNA.
+ * Given a string s that represents a DNA sequence, return all the
+ * 10-letter-long sequences (substrings) that occur more than once in a DNA
+ * molecule. You may return the answer in any order.
+ * 
+ * Example 1:
+ * Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+ * Output: ["AAAAACCCCC","CCCCCAAAAA"]
+ * 
+ * Example 2:
+ * Input: s = "AAAAAAAAAAAAA"
+ * Output: ["AAAAAAAAAA"]
+ */
+
+import java.util.*;
+
+public class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        if (s.length() <= 10) {
+            return new ArrayList<>();
+        }
+        Map<String, Integer> counts = new HashMap<>();
+        int left = 0;
+        int right = 10;
+        while (right <= s.length()) {
+            String subString = s.substring(left, right);
+            counts.put(subString, counts.getOrDefault(subString, 0) + 1);
+            right++;
+            left++;
+        }
+
+        List<String> res = new ArrayList<>();
+        for (String subString : counts.keySet()) {
+            if (counts.get(subString) > 1)
+                res.add(subString);
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        System.out.println(
+                "Output: " + solution.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT").toString());
+    }
+}
