@@ -50,8 +50,33 @@ public class Solution {
         return res;
     }
 
+    // This is another method that uses less space complexity
+    public List<Integer> findAnagramsWithLessSpaceComplexity(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        if (s.length() < p.length())
+            return res;
+        int[] pCounts = new int[26];
+        int[] sCounts = new int[26];
+        int n = p.length();
+        for (int i = 0; i < n; i++) {
+            pCounts[p.charAt(i) - 'a']++;
+            sCounts[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i <= s.length() - n; i++) {
+            if (Arrays.equals(sCounts, pCounts))
+                res.add(i);
+
+            if (i + n < s.length()) {
+                sCounts[s.charAt(i) - 'a']--;
+                sCounts[s.charAt(i + n) - 'a']++;
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println("Output: " + solution.findAnagrams("cbaebabacd", "abc").toString());
+        System.out.println("Method 1 output: " + solution.findAnagrams("cbaebabacd", "abc").toString());
+        System.out.println("Method 2 output: " + solution.findAnagrams("cbaebabacd", "abc").toString());
     }
 }
