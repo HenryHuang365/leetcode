@@ -32,8 +32,8 @@ class Solution {
         int prod = 1;
         int left = 0;
         for (int right = 0; right < nums.length; right++) {
-            prod *= nums[right];
-            while (prod >= k && left < nums.length) {
+            prod = prod * nums[right];
+            while (prod >= k) {
                 prod /= nums[left];
                 left++;
             }
