@@ -31,8 +31,11 @@ import java.util.*;
 public class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> res = new ArrayList<>();
-        int[] pCounts = new int[128];
         int n = p.length();
+        if (s.length() < n) {
+            return res;
+        }
+        int[] pCounts = new int[128];
         for (int i = 0; i < n; i++) {
             int index = p.charAt(i) - 'a';
             pCounts[index]++;
@@ -53,22 +56,26 @@ public class Solution {
     // This is another method that uses less space complexity
     public List<Integer> findAnagramsWithLessSpaceComplexity(String s, String p) {
         List<Integer> res = new ArrayList<>();
-        if (s.length() < p.length())
+        int n = p.length();
+        if (s.length() < n)
             return res;
         int[] pCounts = new int[26];
         int[] sCounts = new int[26];
-        int n = p.length();
         for (int i = 0; i < n; i++) {
-            pCounts[p.charAt(i) - 'a']++;
-            sCounts[s.charAt(i) - 'a']++;
+            int indexp = p.charAt(i) - 'a';
+            int indexs = s.charAt(i) - 'a';
+            pCounts[indexp]++;
+            sCounts[indexs]++;
         }
         for (int i = 0; i <= s.length() - n; i++) {
             if (Arrays.equals(sCounts, pCounts))
                 res.add(i);
 
             if (i + n < s.length()) {
-                sCounts[s.charAt(i) - 'a']--;
-                sCounts[s.charAt(i + n) - 'a']++;
+                int index = s.charAt(i) - 'a';
+                int indexNext = s.charAt(i + n) - 'a';
+                sCounts[index]--;
+                sCounts[indexNext]++;
             }
         }
         return res;
@@ -77,6 +84,6 @@ public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println("Method 1 output: " + solution.findAnagrams("cbaebabacd", "abc").toString());
-        System.out.println("Method 2 output: " + solution.findAnagrams("cbaebabacd", "abc").toString());
+        System.out.println("Method 2 output: " + solution.findAnagramsWithLessSpaceComplexity("cbaebabacd", "abc").toString());
     }
 }
