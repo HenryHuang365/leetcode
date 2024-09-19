@@ -28,19 +28,15 @@ public class Solution {
             return new ArrayList<>();
         }
         Map<String, Integer> counts = new HashMap<>();
-        int left = 0;
-        int right = 10;
-        while (right <= s.length()) {
-            String subString = s.substring(left, right);
+        for (int i = 0; i <= s.length() - 10; i++) {
+            String subString = s.substring(i, i + 10);
             counts.put(subString, counts.getOrDefault(subString, 0) + 1);
-            right++;
-            left++;
         }
-
         List<String> res = new ArrayList<>();
         for (String subString : counts.keySet()) {
-            if (counts.get(subString) > 1)
+            if (counts.get(subString) > 1) {
                 res.add(subString);
+            }
         }
         return res;
     }
