@@ -1,8 +1,13 @@
-import java.util.*;
+import java.util.EmptyStackException;
+
+/**
+ * Stack
+ */
 public class Stack {
     public static class Node {
         int data;
         Node next;
+
         public Node(int value) {
             this.data = value;
             this.next = null;
@@ -12,7 +17,8 @@ public class Stack {
     private Node top;
 
     public int pop() {
-        if (top == null) throw new EmptyStackException();
+        if (top == null)
+            throw new EmptyStackException();
         int value = top.data;
         top = top.next;
         return value;
@@ -25,11 +31,13 @@ public class Stack {
         }
         top = newNode;
     }
+
     public int peek() {
-        if (top == null) throw new EmptyStackException();
+        if (top == null)
+            throw new EmptyStackException();
         return top.data;
     }
-    
+
     public boolean isEmpty() {
         return top == null;
     }
