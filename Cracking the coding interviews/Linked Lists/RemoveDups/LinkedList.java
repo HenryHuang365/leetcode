@@ -1,4 +1,5 @@
 import java.util.*;
+
 class LinkedListNode {
     int data;
     LinkedListNode next;
@@ -7,7 +8,7 @@ class LinkedListNode {
         this.data = value;
         this.next = null;
     }
-    
+
 }
 
 public class LinkedList {
@@ -18,7 +19,7 @@ public class LinkedList {
             head = new LinkedListNode(value);
             return;
         }
-        
+
         LinkedListNode currNode = head;
         while (currNode.next != null) {
             currNode = currNode.next;
@@ -36,9 +37,11 @@ public class LinkedList {
     }
 
     public void deleteDups(LinkedListNode n) {
-        // only have one node for iterations. Checking n.next so n is acting as a prev node. Node to add head.data to the set first.
+        // only have one node for iterations. Checking n.next so n is acting as a prev
+        // node. Node to add head.data to the set first.
         HashSet<Integer> set = new HashSet<>();
-        if (n == null) return;
+        if (n == null)
+            return;
         set.add(n.data);
         while (n.next != null) {
             if (set.contains(n.next.data)) {
@@ -51,7 +54,8 @@ public class LinkedList {
     }
 
     public void deleteDupsTwoNodes(LinkedListNode n) {
-        // This methods has two nodes, using the runner method. Update the prev = n when n is iterating to the next node. 
+        // This methods has two nodes, using the runner method. Update the prev = n when
+        // n is iterating to the next node.
         HashSet<Integer> set = new HashSet<>();
         LinkedListNode previous = null;
         while (n != null) {
@@ -64,7 +68,7 @@ public class LinkedList {
             n = n.next;
         }
     }
-    
+
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
 
