@@ -24,15 +24,15 @@ import java.util.*;
 
 public class Solution {
     public List<String> findRepeatedDnaSequences(String s) {
-        if (s.length() <= 10) {
-            return new ArrayList<>();
-        }
+        List<String> res = new ArrayList<>();
+        if (s.length() <= 10)
+            return res;
+        
         Map<String, Integer> counts = new HashMap<>();
         for (int i = 0; i <= s.length() - 10; i++) {
             String subString = s.substring(i, i + 10);
             counts.put(subString, counts.getOrDefault(subString, 0) + 1);
         }
-        List<String> res = new ArrayList<>();
         for (String subString : counts.keySet()) {
             if (counts.get(subString) > 1) {
                 res.add(subString);
