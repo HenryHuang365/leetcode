@@ -37,14 +37,12 @@ public class Solution {
         }
         int[] pCounts = new int[128];
         for (int i = 0; i < n; i++) {
-            int index = p.charAt(i) - 'a';
-            pCounts[index]++;
+            pCounts[p.charAt(i) - 'a']++;
         }
         for (int i = 0; i <= s.length() - n; i++) {
             int[] sCounts = new int[128];
             for (int j = i; j < i + n; j++) {
-                int index = s.charAt(j) - 'a';
-                sCounts[index]++;
+                sCounts[s.charAt(j) - 'a']++;
             }
             if (Arrays.equals(sCounts, pCounts)) {
                 res.add(i);
@@ -62,20 +60,16 @@ public class Solution {
         int[] pCounts = new int[26];
         int[] sCounts = new int[26];
         for (int i = 0; i < n; i++) {
-            int indexp = p.charAt(i) - 'a';
-            int indexs = s.charAt(i) - 'a';
-            pCounts[indexp]++;
-            sCounts[indexs]++;
+            pCounts[p.charAt(i) - 'a']++;
+            sCounts[s.charAt(i) - 'a']++;
         }
         for (int i = 0; i <= s.length() - n; i++) {
             if (Arrays.equals(sCounts, pCounts))
                 res.add(i);
 
             if (i + n < s.length()) {
-                int index = s.charAt(i) - 'a';
-                int indexNext = s.charAt(i + n) - 'a';
-                sCounts[index]--;
-                sCounts[indexNext]++;
+                sCounts[s.charAt(i) - 'a']--;
+                sCounts[s.charAt(i + n) - 'a']++;
             }
         }
         return res;
