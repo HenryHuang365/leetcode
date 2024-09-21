@@ -50,7 +50,7 @@ public class LinkedList {
         }
         int index = printKthToLast(head.next, k) + 1;
         if (index == k) {
-            System.out.println(k + " th to the last node is " + head.data);
+            System.out.println("kth to the last node is " + head.data);
         }
         return index;
     }
@@ -72,6 +72,24 @@ public class LinkedList {
         return node;
     }
 
+    LinkedListNode nthTolast(LinkedListNode head, int k) {
+        LinkedListNode p1 = head;
+        LinkedListNode p2 = head;
+        for (int i = 0; i < k; i++) {
+            if (p1 == null) {
+                return null;
+            }
+            p1 = p1.next;
+        }
+
+        while (p1 != null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        return p2;
+    }
+
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
 
@@ -84,7 +102,8 @@ public class LinkedList {
         linkedList.append(2);
         System.out.print("LinkedList: ");
         linkedList.printLinkedList();
-        System.out.println(linkedList.printKthToLast(linkedList.head, 4));
-        System.out.println(linkedList.kthTolast(linkedList.head, 4).data);
+        linkedList.printKthToLast(linkedList.head, 3);
+        System.out.println("kth to the last node is " + linkedList.kthTolast(linkedList.head, 3).data);
+        System.out.println("kth to the last node is " + linkedList.nthTolast(linkedList.head, 3).data);
     }
 }
