@@ -15,6 +15,8 @@ public class LinkedList {
     public void appendToTail(int value) {
         if (head == null) {
             head = new Node(value);
+            // Note: this return is important as it stops adding one extra node into the
+            // linked list
             return;
         }
         Node currNode = head;
@@ -43,6 +45,8 @@ public class LinkedList {
             if (currNode.next.data == value) {
                 // This is going to skip the first value appearance
                 currNode.next = currNode.next.next;
+                // Note: this return here stops the search.
+                // Include return if only want to delete the first appearance of the node.
                 return;
             }
             currNode = currNode.next;
