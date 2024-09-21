@@ -12,6 +12,11 @@ class LinkedListNode {
 }
 
 public class LinkedList {
+    public class Index {
+        public int value = 0;
+
+    }
+
     LinkedListNode head;
 
     public void append(int value) {
@@ -35,7 +40,7 @@ public class LinkedList {
         System.out.println();
     }
 
-    public int printKthToLastRecursion(LinkedListNode head, int k) {
+    public int printKthToLast(LinkedListNode head, int k) {
         // The recursive solution for this question is a deviation of recursively
         // counting the number of nodes in a linked list.
         // Without the printout, the output of this function is just the number of nodes
@@ -43,11 +48,28 @@ public class LinkedList {
         if (head == null) {
             return 0;
         }
-        int index = printKthToLastRecursion(head.next, k) + 1;
+        int index = printKthToLast(head.next, k) + 1;
         if (index == k) {
             System.out.println(k + " th to the last node is " + head.data);
         }
         return index;
+    }
+
+    LinkedListNode kthTolast(LinkedListNode head, int k) {
+        Index idx = new Index();
+        return kthTolast(head, k, idx);
+    }
+
+    LinkedListNode kthTolast(LinkedListNode head, int k, Index idx) {
+        if (head == null) {
+            return null;
+        }
+        LinkedListNode node = kthTolast(head.next, k, idx);
+        idx.value = idx.value + 1;
+        if (idx.value == k) {
+            return head;
+        }
+        return node;
     }
 
     public static void main(String[] args) {
@@ -62,6 +84,7 @@ public class LinkedList {
         linkedList.append(2);
         System.out.print("LinkedList: ");
         linkedList.printLinkedList();
-        System.out.println(linkedList.printKthToLastRecursion(linkedList.head, 4));
+        System.out.println(linkedList.printKthToLast(linkedList.head, 4));
+        System.out.println(linkedList.kthTolast(linkedList.head, 4).data);
     }
 }
