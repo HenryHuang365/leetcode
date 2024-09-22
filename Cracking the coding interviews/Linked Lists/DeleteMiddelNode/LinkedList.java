@@ -1,6 +1,9 @@
+
 /**
  * InnerLinkedList
  */
+import java.util.*;
+
 class LinkedListNode {
     int data;
     LinkedListNode next;
@@ -35,11 +38,20 @@ public class LinkedList {
         System.out.println();
     }
 
+    public List<Integer> outputLinkedList() {
+        List<Integer> linkedList = new ArrayList<>();
+        LinkedListNode n = head;
+        while (n != null) {
+            linkedList.add(n.data);
+            n = n.next;
+        }
+        return linkedList;
+    }
+
     public boolean deleteNode(LinkedListNode n) {
         if (n == null || n.next == null) {
             return false;
         }
-        // LinkedListNode nextNode = n.next;
         n.data = n.next.data;
         n.next = n.next.next;
         return true;
@@ -61,10 +73,12 @@ public class LinkedList {
         linkedList.append(2);
         System.out.print("Before LinkedList: ");
         linkedList.printLinkedList();
+        System.out.println(linkedList.outputLinkedList().toString());
         isDetelted = linkedList.deleteNode(linkedList.head.next);
         if (isDetelted) {
             System.out.print("After LinkedList: ");
             linkedList.printLinkedList();
+            System.out.println(linkedList.outputLinkedList().toString());
         }
     }
 }
