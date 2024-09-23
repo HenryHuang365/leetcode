@@ -27,5 +27,8 @@ public class Main {
 
         System.out.println("It is " + graph.hasPathDFS(1, 2) + " that Node 1 has a path to Node 2.");
         System.out.println("It is " + graph.hasPathDFS(5, 3) + " that Node 5 has a path to Node 3.");
+
+        System.out.println("It is " + graph.hasPathBFS(1, 2) + " that Node 1 has a path to Node 2.");
+        System.out.println("It is " + graph.hasPathBFS(5, 3) + " that Node 5 has a path to Node 3.");
     }
 }
