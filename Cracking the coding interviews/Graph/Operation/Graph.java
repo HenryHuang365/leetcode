@@ -57,6 +57,9 @@ public class Graph {
     public boolean hasPathDFS(int source, int destination) {
         Node s = getNode(source);
         Node d = getNode(destination);
+        if (s == null || d == null) {
+            return false;
+        }
         HashSet<Integer> visted = new HashSet<>();
         return hasPathDFS(s, d, visted);
     }
@@ -79,7 +82,12 @@ public class Graph {
     }
 
     public boolean hasPathBFS(int source, int destination) {
-        return hasPathBFS(getNode(source), getNode(destination));
+        Node s = getNode(source);
+        Node d = getNode(destination);
+        if (s == null || d == null) {
+            return false;
+        }
+        return hasPathBFS(s, d);
     }
 
     public boolean hasPathBFS(Node source, Node destination) {
