@@ -55,17 +55,21 @@ public class Solution {
     public List<Integer> findAnagramsWithLessSpaceComplexity(String s, String p) {
         List<Integer> res = new ArrayList<>();
         int n = p.length();
-        if (s.length() < n)
+        if (n > s.length()) {
             return res;
-        int[] pCounts = new int[26];
+        }
         int[] sCounts = new int[26];
+        int[] pCounts = new int[26];
+
         for (int i = 0; i < n; i++) {
             pCounts[p.charAt(i) - 'a']++;
             sCounts[s.charAt(i) - 'a']++;
         }
+
         for (int i = 0; i <= s.length() - n; i++) {
-            if (Arrays.equals(sCounts, pCounts))
+            if (Arrays.equals(sCounts, pCounts)) {
                 res.add(i);
+            }
 
             if (i + n < s.length()) {
                 sCounts[s.charAt(i) - 'a']--;
