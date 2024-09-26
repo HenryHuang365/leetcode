@@ -4,7 +4,7 @@ import java.util.*;
  * Graph
  */
 public class Graph {
-    private HashMap<Integer, Node> nodeLookup = new HashMap<>();
+    HashMap<Integer, Node> nodeLookUp = new HashMap<>();
 
     public class Node {
         int id;
@@ -13,40 +13,32 @@ public class Graph {
         private Node(int id) {
             this.id = id;
         }
-
     }
 
     public Node getNode(int id) {
-        return nodeLookup.get(id);
+        return nodeLookUp.get(id);
     }
 
     public void addNode(int id) {
-        if (nodeLookup.containsKey(id)) {
-            return;
-        }
-        nodeLookup.put(id, new Node(id));
+        nodeLookUp.put(id, new Node(id));
     }
 
-    // add edge in a directed graph
     public void addEdge(int source, int destination) {
         Node s = getNode(source);
         Node d = getNode(destination);
         if (s == null) {
-            System.out.println("Source node " + source + " does not exist.");
             return;
         }
         if (d == null) {
-            System.out.println("Destination node " + destination + " does not exist.");
             return;
         }
         s.adjacent.add(d);
-        // d.adjacent.add(s); // If this is an undirected graph, add this line.
+        // d.adjacent.add(s); // If this is a undirected graph
     }
-
+    
     public void displayGraph() {
-        for (Integer id : nodeLookup.keySet()) {
-            Node node = getNode(id);
-            System.out.print("Node " + id + " is connected to: ");
+        for (Node node : nodeLookUp.values()) {
+            System.out.print("Node " + node.id + " has adjacent nodes: ");
             for (Node adj : node.adjacent) {
                 System.out.print(adj.id + " ");
             }
@@ -60,24 +52,27 @@ public class Graph {
         if (s == null || d == null) {
             return false;
         }
-        HashSet<Integer> visted = new HashSet<>();
-        return hasPathDFS(s, d, visted);
+        HashSet<Integer> visited = new HashSet<>();
+        return hasPathDFS(s, d, visited);
     }
 
-    public boolean hasPathDFS(Node source, Node destination, HashSet<Integer> visted) {
-        if (visted.contains(source.id)) {
+    public boolean hasPathDFS(Node source, Node destination, HashSet<Integer> visited) {
+        if (visited.contains(source.id)) {
             return false;
         }
-        visted.add(source.id);
+        
         if (source.id == destination.id) {
             return true;
         }
 
+        visited.add(source.id);
+
         for (Node child : source.adjacent) {
-            if (hasPathDFS(child, destination, visted)) {
+            if (hasPathDFS(child, destination, visited)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -87,24 +82,22 @@ public class Graph {
         if (s == null || d == null) {
             return false;
         }
-        return hasPathBFS(s, d);
+        HashSet<Integer> visited = new HashSet<>();
+        return hasPathBFS(s, d, visited);
     }
 
-    public boolean hasPathBFS(Node source, Node destination) {
-        LinkedList<Node> nextToVisit = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet<>();
+    public boolean hasPathBFS(Node source, Node destination, HashSet<Integer> visited) {
+        LinkedList<Node> nextToVisit = new LinkedList<Node>();
         nextToVisit.add(source);
 
         while (!nextToVisit.isEmpty()) {
-            Node node = nextToVisit.remove();
-            if (node == destination) {
-                return true;
-            }
-
+            Node node = nextToVisit.pop();
             if (visited.contains(node.id)) {
                 continue;
             }
-
+            if (node.id == destination.id) {
+                return true;
+            }
             visited.add(node.id);
 
             for (Node child : node.adjacent) {
@@ -114,5 +107,4 @@ public class Graph {
 
         return false;
     }
-
 }
