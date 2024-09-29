@@ -2,9 +2,10 @@
  * Solution
  * 
  * Note:
- * 1. This is a BFS question.
+ * 1. This is a dfs question.
  * Each first '1' in the grid is the beginnig of an island. We mark all the
- * adjancent '1's using BFS to connect the entire island.
+ * adjancent '1's using dfs to connect the entire island.
+ * Starting a direction, update all the adjacent '1' to '0' through this path.
  * 
  * 2. Since this is a 2-D grid, so we mark the visited '1' as '0'.
  * Normally, we add the coordinate/index into a set called visited. In this
@@ -22,7 +23,7 @@ public class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '1') {
-                    bfs(grid, i, j);
+                    dfs(grid, i, j);
                     islands++;
                 }
             }
@@ -30,17 +31,17 @@ public class Solution {
         return islands;
     }
 
-    public void bfs(char[][] grid, int i, int j) {
+    public void dfs(char[][] grid, int i, int j) {
         if ((i < 0 || i >= grid.length) ||
                 (j < 0 || j >= grid[0].length) ||
                 grid[i][j] == '0') {
             return;
         }
         grid[i][j] = '0';
-        bfs(grid, i - 1, j); // up
-        bfs(grid, i + 1, j); // down
-        bfs(grid, i, j - 1); // left
-        bfs(grid, i, j + 1); // right
+        dfs(grid, i - 1, j); // up
+        dfs(grid, i + 1, j); // down
+        dfs(grid, i, j - 1); // left
+        dfs(grid, i, j + 1); // right
     }
 
     public static void main(String[] args) {
