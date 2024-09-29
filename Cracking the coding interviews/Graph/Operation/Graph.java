@@ -76,6 +76,38 @@ public class Graph {
         return false;
     }
 
+    public boolean hasPathDFSIterative(int source, int destination) {
+        Node s = getNode(source);
+        Node d = getNode(destination);
+        if (s == null || d == null) {
+            return false;
+        }
+
+        HashSet<Integer> visited = new HashSet<>();
+        Stack<Node> stack = new Stack<>();
+        stack.push(s);
+
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+
+            if (node.id == destination) {
+                return true;
+            }
+
+            if (visited.contains(node.id)) {
+                continue;
+            }
+
+            visited.add(node.id);
+
+            for (Node child : node.adjacent) {
+                stack.push(child);
+            }
+        }
+
+        return false;
+    }
+
     public boolean hasPathBFS(int source, int destination) {
         Node s = getNode(source);
         Node d = getNode(destination);
@@ -106,5 +138,41 @@ public class Graph {
         }
 
         return false;
+    }
+
+    public boolean hasPathBFSRecursive(int source, int destination) {
+        Node s = getNode(source);
+        Node d = getNode(destination);
+        if (s == null || d == null) {
+            return false;
+        }
+
+        HashSet<Integer> visited = new HashSet<>();
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.add(s);
+        return hasPathBFSRecursive(queue, d, visited);
+    }
+
+    private boolean hasPathBFSRecursive(LinkedList<Node> queue, Node destination, HashSet<Integer> visited) {
+        if (queue.isEmpty()) {
+            return false;
+        }
+
+        Node node = queue.removeFirst();
+        if (node.id == destination.id) {
+            return true;
+        }
+
+        if (visited.contains(node.id)) {
+            return hasPathBFSRecursive(queue, destination, visited);
+        }
+
+        visited.add(node.id);
+
+        for (Node child : node.adjacent) {
+            queue.addLast(child);
+        }
+
+        return hasPathBFSRecursive(queue, destination, visited);
     }
 }
