@@ -14,31 +14,30 @@
 import java.util.*;
 class Solution {
     public List<String> generateParenthesis(int n) {
-        Stack<Character> stack = new Stack<>();
         List<String> res = new ArrayList<>();
-        backtracking(n, 0, 0, res, stack);
+        Stack<Character> stack = new Stack<>();
+        backtracking(n, res, stack, 0, 0);
         return res;
     }
 
-    public void backtracking(int n, int openN, int closeN, List<String> res, Stack<Character> stack) {
+    public void backtracking(int n, List<String> res, Stack<Character> stack, int openN, int closeN) {
         if (openN == n && openN == closeN) {
             StringBuilder sb = new StringBuilder();
-            for (char c : stack) {
+            for (Character c : stack) {
                 sb.append(c);
             }
             res.add(sb.toString());
-            return;
         }
 
         if (openN < n) {
             stack.add('(');
-            backtracking(n, openN + 1, closeN, res, stack);
+            backtracking(n, res, stack, openN + 1, closeN);
             stack.pop();
         }
 
         if (closeN < openN) {
             stack.add(')');
-            backtracking(n, openN, closeN + 1, res, stack);
+            backtracking(n, res, stack, openN, closeN + 1);
             stack.pop();
         }
     }
