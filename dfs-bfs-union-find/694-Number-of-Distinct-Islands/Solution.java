@@ -23,9 +23,11 @@ public class Solution {
     }
 
     public void dfs(int[][] grid, int i, int j, StringBuilder sb, String s) {
-        if ((i < 0 || i >= grid.length) ||
-                (j < 0 || j >= grid[0].length) ||
-                grid[i][j] == 0) {
+        if (
+            (i < 0 || i >= grid.length) ||
+            (j < 0 || j >= grid[0].length) ||
+            grid[i][j] == 0
+        ) {
             return;
         }
 
