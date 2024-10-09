@@ -37,12 +37,38 @@ public class Solution {
         return image;
     }
 
+    public int[][] floodFillDFS(int[][] image, int sr, int sc, int color) {
+        int originalColor = image[sr][sc];
+        dfs(image, sr, sc, originalColor, color);
+        return image;
+    }
+
+    public void dfs(int[][] image, int i, int j, int originalColor, int color) {
+        if ((i < 0 || i >= image.length) ||
+                (j < 0 || j >= image[0].length) ||
+                (image[i][j] == color) ||
+                (image[i][j] != originalColor)) {
+            return;
+        }
+        image[i][j] = color;
+        dfs(image, i + 1, j, originalColor, color);
+        dfs(image, i - 1, j, originalColor, color);
+        dfs(image, i, j + 1, originalColor, color);
+        dfs(image, i, j - 1, originalColor, color);
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
         int[][] image = new int[][] { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 } };
         // int[][] image = new int[][] { { 0, 0, 0 }, { 0, 0, 0 } };
-        int[][] newImage = solution.floodFill(image, 1, 1, 2);
-        for (int[] row : newImage) {
+        int[][] newImageBFS = solution.floodFill(image, 1, 1, 2);
+        int[][] newImageDFS = solution.floodFillDFS(image, 1, 1, 2);
+        System.out.println("BFS: ");
+        for (int[] row : newImageBFS) {
+            System.out.println("Output: " + Arrays.toString(row));
+        }
+        System.out.println("DFS: ");
+        for (int[] row : newImageDFS) {
             System.out.println("Output: " + Arrays.toString(row));
         }
     }
