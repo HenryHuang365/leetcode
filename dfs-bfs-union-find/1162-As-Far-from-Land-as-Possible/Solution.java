@@ -24,8 +24,6 @@ public class Solution {
         int res = -1; // The initial value of res will not affect the result
 
         while (!nextToVisited.isEmpty()) {
-            // int size = nextToVisited.size();
-            // while (size-- > 0) {
             int[] cell = nextToVisited.poll(); 
             int x = cell[0];
             int y = cell[1];
@@ -34,12 +32,10 @@ public class Solution {
                 int newX = x + dir[0];
                 int newY = y + dir[1];
                 if (newX >= 0 && newX < N && newY >= 0 && newY < N && grid[newX][newY] == 0) {
-                    // System.out.println("adjcents");
                     grid[newX][newY] = grid[x][y] + 1;
                     nextToVisited.offer(new int[]{newX, newY});
                 }
             }
-            // }
         }
         return res - 1;
     }
