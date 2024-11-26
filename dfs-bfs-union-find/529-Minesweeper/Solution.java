@@ -5,14 +5,13 @@ class Solution {
     public char[][] updateBoardDFS(char[][] board, int[] click) {
         int row = click[0];
         int col = click[1];
-
         char clickOn = board[row][col];
 
         if (clickOn == 'M') {
             board[row][col] = 'X';
         } else {
             int count = 0;
-            for (int i = -1; i < 2; i++ ) {
+            for (int i = -1; i < 2; i++) {
                 for (int j = -1; j < 2; j++) {
                     if (i == 0 && j == 0) continue;
                     int r = row + i;
@@ -26,7 +25,7 @@ class Solution {
                 board[row][col] = (char)(count + '0');
             } else {
                 board[row][col] = 'B';
-                for (int i = -1; i < 2; i++ ) {
+                for (int i = -1; i < 2; i++) {
                     for (int j = -1; j < 2; j++) {
                         if (i == 0 && j == 0) continue;
                         int r = row + i;
@@ -41,14 +40,15 @@ class Solution {
     }
 
     public char[][] updateBoardBFS(char[][] board, int[] click) {
-        Queue<int[]> nextToVist = new LinkedList<>();
-        nextToVist.add(click);
-
-        while (!nextToVist.isEmpty()) {
-            int[] cell = nextToVist.poll();
+        Queue<int[]> nextToVisit = new LinkedList<>();
+        nextToVisit.add(click);
+        
+        while (!nextToVisit.isEmpty()) {
+            int[] cell = nextToVisit.poll();
             int row = cell[0];
             int col = cell[1];
             int clickOn = board[row][col];
+
             if (clickOn == 'M') {
                 board[row][col] = 'X';
             } else {
@@ -59,7 +59,7 @@ class Solution {
                         int r = row + i;
                         int c = col + j;
                         if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) continue;
-                        if (board[r][c] == 'X' || board[r][c] == 'M') count++;
+                        if (board[r][c] == 'M' || board[r][c] == 'X') count++;
                     }
                 }
 
@@ -73,8 +73,8 @@ class Solution {
                             int r = row + i;
                             int c = col + j;
                             if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) continue;
-                            if (board[r][c] == 'E') { 
-                                nextToVist.add(new int[] {r, c});
+                            if (board[r][c] == 'E') {
+                                nextToVisit.add(new int[] {r, c});
                                 board[r][c] = 'B';
                             }
                         }
@@ -82,7 +82,6 @@ class Solution {
                 }
             }
         }
-        
         return board;
     }
 
