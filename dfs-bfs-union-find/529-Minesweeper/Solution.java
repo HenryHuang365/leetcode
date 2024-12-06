@@ -47,8 +47,7 @@ class Solution {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
             int col = cell[1];
-            int clickOn = board[row][col];
-
+            char clickOn = board[row][col];
             if (clickOn == 'M') {
                 board[row][col] = 'X';
             } else {
