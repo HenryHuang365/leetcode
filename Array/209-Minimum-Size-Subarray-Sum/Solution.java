@@ -28,7 +28,7 @@ class Solution {
         for (int right = 0; right < nums.length; right++) {
             sum += nums[right];
 
-            while (sum >= target && left <= right) {
+            while (sum >= target) {
                 length = Math.min(length, right - left + 1);
                 sum -= nums[left];
                 left++;
@@ -40,8 +40,8 @@ class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int target = 4;
-        int[] nums = new int[] {1, 4, 4};
+        int target = 11;
+        int[] nums = new int[] {1,1,1,1,1,1,1,1};
 
         System.out.println("output: " + solution.minSubArrayLenMethodTwo(target, nums));
     }
