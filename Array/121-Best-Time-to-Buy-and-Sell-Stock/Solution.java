@@ -26,24 +26,27 @@
 
 class Solution {
     public int maxProfit(int[] prices) {
-        int maxValue = 0;
-        int l = 0;
-        int r = l + 1;
+        int left = 0;
+        int right = left + 1;
+        int profit = 0;
 
-        while (r < prices.length) {
-            int value = prices[r] - prices[l];
-            // Important: value > 0 is the key indicator for moving left pointer. 
+        while (right < prices.length) {
+            int value = prices[right] - prices[left];
             if (value > 0) {
-                maxValue = Math.max(maxValue, value);                
+                profit = Math.max(profit, value);
             } else {
-                // Sometimes, sliding windows does only increment the pointer by one or using while. 
-                // we can simply just assign the right pointer to the left pointer. 
-                l = r;
+                left = right;
             }
-            // The right pointer should always move in every loop. 
-            r++;
+
+            right++;
         }
 
-        return maxValue;
+        return profit;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        System.out.println("Output: " + solution.maxProfit(new int[] {7,1,5,3,6,4}));
     }
 }
