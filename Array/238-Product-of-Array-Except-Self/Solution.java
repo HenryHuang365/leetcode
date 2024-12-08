@@ -51,7 +51,7 @@ class Solution {
         }
 
         System.out.println("left product: " + left_product);
-        System.out.println("right product: " + right_product);
+        System.out.println("right product: " + Arrays.toString(right_product));
 
         for (int k = 0; k < n; k++) {
             int left_index = k - 1;
