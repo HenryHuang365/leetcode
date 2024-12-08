@@ -27,6 +27,7 @@
 // output array does not count as extra space for space complexity analysis.)
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class Solution {
     public int[] productExceptSelf(int[] nums) {
@@ -34,7 +35,9 @@ class Solution {
         int[] list = new int[n];
 
         List<Integer> left_product = new ArrayList<>();
-        List<Integer> right_product = new ArrayList<>();
+        // List<Integer> right_product = new ArrayList<>();
+        int[] right_product = new int[n];
+
         int product1 = 1;
         for (int i = 0; i < n; i++) {
             product1 = product1 * nums[i];
@@ -44,7 +47,7 @@ class Solution {
         int product2 = 1;
         for (int j = n - 1; j >= 0; j--) {
             product2 = product2 * nums[j];
-            right_product.add(product2);
+            right_product[j] = product2;
         }
 
         System.out.println("left product: " + left_product);
@@ -52,10 +55,10 @@ class Solution {
 
         for (int k = 0; k < n; k++) {
             int left_index = k - 1;
-            int right_index = n - k - 2;
+            int right_index = k + 1;
 
             int left_index_ele = left_index >= 0 ? left_product.get(left_index) : 1;
-            int right_index_ele = right_index >= 0 ? right_product.get(right_index) : 1;
+            int right_index_ele = right_index < n ? right_product[right_index] : 1;
             System.out.println("left_index_ele: " + left_index_ele);
             System.out.println("right_index_ele: " + right_index_ele);
 
@@ -64,5 +67,13 @@ class Solution {
         }
 
         return list;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int[] nums = new int[] {1, 2, 3, 4};
+
+        System.out.println("output: " + Arrays.toString(solution.productExceptSelf(nums)));
     }
 }
