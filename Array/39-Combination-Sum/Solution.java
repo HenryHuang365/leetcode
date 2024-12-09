@@ -40,11 +40,12 @@ class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> list = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack(list, new ArrayList<>(), candidates, target, 0);
+        backtrack(list, candidates, new ArrayList<>(), target, 0);
+
         return list;
     }
 
-    public void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] candidates, int remain, int start) {
+    public void backtrack(List<List<Integer>> list, int[] candidates, List<Integer> tempList, int remain, int start) {
         if (remain < 0) {
             return;
         } else if (remain == 0) {
@@ -52,9 +53,17 @@ class Solution {
         } else {
             for (int i = start; i < candidates.length; i++) {
                 tempList.add(candidates[i]);
-                backtrack(list, tempList, candidates, remain - candidates[i], i);
+                backtrack(list, candidates, tempList, remain - candidates[i], i);
                 tempList.remove(tempList.size() - 1);
             }
         }
+    }
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int[] candidates = new int[] {2,3,6,7};
+        int target = 7;
+
+        System.out.println("output: " + solution.combinationSum(candidates, target));
     }
 }
