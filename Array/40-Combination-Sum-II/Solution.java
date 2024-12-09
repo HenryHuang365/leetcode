@@ -37,24 +37,35 @@ import java.util.Arrays;
 
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack(list, new ArrayList<>(), candidates, target, 0);
-        return list;
+
+        backtrack(res, candidates, path, target, 0);
+
+        return res;
     }
 
-    public void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] candidates, int remain, int start) {
+    public void backtrack(List<List<Integer>> res, int[] candidates, List<Integer> path, int remain, int start) {
         if (remain < 0) {
             return;
         } else if (remain == 0) {
-            list.add(new ArrayList<>(tempList));
+            res.add(new ArrayList<>(path));
         } else {
             for (int i = start; i < candidates.length; i++) {
-                if (i > start && candidates[i] == candidates[i-1]) continue;
-                tempList.add(candidates[i]);
-                backtrack(list, tempList, candidates, remain - candidates[i], i + 1);
-                tempList.remove(tempList.size() - 1);
+                if (i > start && candidates[i] == candidates[i - 1]) continue;
+                path.add(candidates[i]);
+                backtrack(res, candidates, path, remain - candidates[i], i + 1);
+                path.remove(path.size() - 1);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int[] candidates = new int[] {10,1,2,7,6,1,5};
+
+        System.out.println("Output: " + solution.combinationSum2(candidates, 8));
     }
 }
