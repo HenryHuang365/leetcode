@@ -25,18 +25,31 @@ import java.util.Arrays;
 
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+
         Arrays.sort(nums);
-        backtrack(list, new ArrayList<>(), nums, 0);
-        return list;
+        backtrack(res, nums, path, 0);
+        return res;
     }
 
-    public void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, int start) {
-        list.add(new ArrayList<>(tempList));
+    public void backtrack(List<List<Integer>> res, int[] nums, List<Integer> path, int start) {
+        res.add(new ArrayList<>(path));
+
         for (int i = start; i < nums.length; i++) {
-            tempList.add(nums[i]);
-            backtrack(list, tempList, nums, i + 1);
-            tempList.remove(tempList.size() - 1);
+            path.add(nums[i]);
+            backtrack(res, nums, path, i + 1);
+            path.remove(path.size() - 1);
         }
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int[] nums = new int[] {1, 2, 3};
+
+        List<List<Integer>> res = solution.subsets(nums);
+
+        System.out.println("output: " + res);
     }
 }
