@@ -54,6 +54,27 @@ public class LinkedList {
         }
     }
 
+    public boolean hasCycle(Node node) {
+        if (node == null) {
+            return false;
+        }
+
+        Node fast = node.next; // if there is only one node, the fast is initially null
+        Node slow = node;
+
+        // check if the fast is null initially
+        while (fast != null && fast.next != null) {
+            if (fast == slow) {
+                return true;
+            }
+
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        return false;
+    }
+
     // Print the linked list iteratively
     public void printLinkedList() {
         Node n = head;
