@@ -38,6 +38,7 @@ public class LinkedList {
 
         if (head.data == value) {
             head = head.next;
+            return;
         }
 
         Node currNode = head;
