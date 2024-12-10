@@ -67,7 +67,7 @@ public class LinkedList {
     // Append value to the end of the list recursively
     public void appendToTailRecursion(Node node, int value) {
         if (node == null) {
-            head = new Node(value); // If head is null, initialize the list
+            node = new Node(value); // If head is null, initialize the list
         } else if (node.next == null) {
             node.next = new Node(value);
         } else {
