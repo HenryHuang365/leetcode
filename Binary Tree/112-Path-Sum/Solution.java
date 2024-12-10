@@ -53,20 +53,21 @@ class Solution {
         if (root == null) {
             return false;
         }
-        return helper(root, 0, targetSum);
+
+        return hasPathSum(root, 0, targetSum);
     }
 
-    public boolean helper(TreeNode root, int currentSum, int targetSum) {
-        if (root == null) {
+    public boolean hasPathSum(TreeNode node, int currSum, int targetSum) {
+        if (node == null) {
             return false;
         }
-        currentSum += root.val;
-        if (root.left == null && root.right == null) {
-            if (currentSum == targetSum) {
+        currSum += node.val;
+        if (node.left == null && node.right == null) {
+            if (currSum == targetSum) {
                 return true;
             }
         }
 
-        return helper(root.left, currentSum, targetSum) || helper(root.right, currentSum, targetSum);
+        return (hasPathSum(node.left, currSum, targetSum) || hasPathSum(node.right, currSum, targetSum));
     }
 }
