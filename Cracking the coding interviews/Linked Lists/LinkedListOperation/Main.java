@@ -16,5 +16,6 @@ public class Main {
         list.appendToTailRecursion(list.head, 4);
         list.printLinkedListRecursion(list.head); // Recursive print
         System.out.println();
+        System.out.println("Has Cycled: " + list.hasCycle(list.head));
     }
 }
