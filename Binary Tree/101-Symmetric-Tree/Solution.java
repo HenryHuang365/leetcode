@@ -27,17 +27,22 @@ class Solution {
         }
     }
     public boolean isSymmetric(TreeNode root) {
-        return root == null || helper(root.left, root.right);
+        if (root == null) {
+            return false;
+        }
+
+        return isSymmetric(root.left, root.right);
     }
 
-    public boolean helper(TreeNode left, TreeNode right) {
-        if (left == null && right == null) return true;
+    public boolean isSymmetric(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+
         if (left != null && right != null) {
-            if (left.val != right.val) return false;
-            return helper(left.left, right.right) && helper(left.right, right.left);
+            return (left.val == right.val && isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left));
         } else {
             return false;
         }
     }
-           
 }
