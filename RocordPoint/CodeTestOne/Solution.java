@@ -1,9 +1,9 @@
 // import java.util.Arrays;
-import java.util.*;
-import java.io.*;
+// import java.util.*;
+// import java.io.*;
 public class Solution {
 
-    public static int MathChallenge(int num) {
+    public int MathChallenge(int num) {
         char[] digits = Integer.toString(num).toCharArray();
         int n = digits.length;
 
@@ -49,9 +49,9 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        // Test with custom inputs
-        System.out.println(MathChallenge(s.nextLine()));
+        Solution solution = new Solution();
+
+        System.out.println("Output: " + solution.MathChallenge(123));
     }
 }
 
