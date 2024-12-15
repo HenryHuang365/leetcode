@@ -5,7 +5,7 @@ class Solution {
     public char[][] updateBoardDFS(char[][] board, int[] click) {
         int row = click[0];
         int col = click[1];
-        char clickOn = board[row][col];
+        Character clickOn = board[row][col];
 
         if (clickOn == 'M') {
             board[row][col] = 'X';
@@ -42,7 +42,7 @@ class Solution {
     public char[][] updateBoardBFS(char[][] board, int[] click) {
         Queue<int[]> nextToVisit = new LinkedList<>();
         nextToVisit.add(click);
-        
+
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
