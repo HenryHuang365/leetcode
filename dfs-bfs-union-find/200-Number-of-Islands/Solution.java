@@ -13,29 +13,24 @@
  */
 public class Solution {
     public int numIslands(char[][] grid) {
-        int islands = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        if (m == 0 && n == 0) {
-            return islands;
-        }
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == '1') {
                     dfs(grid, i, j);
-                    islands++;
+                    count++;
                 }
             }
         }
-        return islands;
+
+        return count;
     }
 
     public void dfs(char[][] grid, int i, int j) {
         if (
             (i < 0 || i >= grid.length) ||
             (j < 0 || j >= grid[0].length) ||
-            grid[i][j] == '0'
+            (grid[i][j] == '0')
         ) {
             return;
         }
