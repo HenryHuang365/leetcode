@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Solution
  * 
@@ -17,7 +20,8 @@ public class Solution {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == '1') {
-                    dfs(grid, i, j);
+                    // dfs(grid, i, j);
+                    bfs(grid, i, j);
                     count++;
                 }
             }
@@ -39,6 +43,32 @@ public class Solution {
         dfs(grid, i - 1, j);
         dfs(grid, i, j + 1);
         dfs(grid, i, j - 1);
+    }
+
+    public void bfs(char[][] grid, int i, int j) {
+        Queue<int[]> nextToVisit = new LinkedList<>();
+        nextToVisit.offer(new int[] {i, j});
+
+        while (!nextToVisit.isEmpty()) {
+            int[] cell = nextToVisit.poll();
+            int row = cell[0];
+            int col = cell[1];
+            
+            if (grid[row][col] == '0') {
+                continue;
+            }
+
+            grid[row][col] = '0';
+            int[][] directions = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+            for (int[] dir : directions) {
+                int r = row + dir[0];
+                int c = col + dir[1];
+                if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] != '0') {
+                    nextToVisit.offer(new int[] {r, c});
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
