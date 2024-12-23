@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
         int res = 0;
@@ -29,6 +32,49 @@ class Solution {
         area += dfs(grid, i, j - 1);
 
         return area;
+    }
+
+    public int maxAreaOfIslandBFS(int[][] grid) {
+        int result = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    int count = bfs(grid, i, j);
+                    result = Math.max(result, count);
+                }
+            }
+        }
+        return result;
+    }
+
+    public int bfs(int[][] grid, int i, int j) {
+        Queue<int[]> nextToVisit = new LinkedList<>();
+        nextToVisit.offer(new int[] { i, j });
+        int count = 0;
+
+        while (!nextToVisit.isEmpty()) {
+            int[] cell = nextToVisit.poll();
+            int row = cell[0];
+            int col = cell[1];
+
+            if (grid[row][col] == 0) {
+                continue;
+            }
+
+            grid[row][col] = 0;
+            count++;
+
+            int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            for (int[] dir : directions) {
+                int r = row + dir[0];
+                int c = col + dir[1];
+                if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] == 1) {
+                    nextToVisit.offer(new int[] { r, c });
+                }
+            }
+        }
+
+        return count;
     }
 
     public void increment() {
@@ -64,5 +110,20 @@ class Solution {
         System.out.println("Output: " + solution.maxAreaOfIsland(input));
         System.out.println("Output: " + solution.maxAreaOfIsland(input2));
         solution.increment();
+        int[][] input3 = new int[][] {
+                { 1, 1, 0, 0, 0 },
+                { 1, 1, 0, 0, 0 },
+                { 0, 0, 0, 1, 1 },
+                { 0, 0, 0, 1, 1 },
+        };
+
+        int[][] input4 = new int[][] {
+                { 1, 1, 0, 1, 1 },
+                { 1, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 1 },
+                { 1, 1, 0, 1, 1 },
+        };
+        System.out.println("Output: " + solution.maxAreaOfIslandBFS(input3));
+        System.out.println("Output: " + solution.maxAreaOfIslandBFS(input4));
     }
 }
