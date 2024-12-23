@@ -3,13 +3,12 @@ import java.util.Queue;
 
 public class Solution {
     public int findCircleNum(int[][] isConnected) {
-        int n = isConnected.length;
         int count = 0;
-        int[] visted = new int[n];
+        int[] visted = new int[isConnected.length];
         for (int i = 0; i < isConnected.length; i++) {
             if (visted[i] == 0) {
-                count++;
                 dfs(isConnected, visted, i);
+                count++;
             }
         }
         return count;
@@ -17,7 +16,7 @@ public class Solution {
 
     public void dfs(int[][] isConnected, int[] visted, int i) {
         for (int j = 0; j < isConnected.length; j++) {
-            if (visted[j] == 0 && isConnected[i][j] == 1) {
+            if (isConnected[i][j] == 1 && visted[j] == 0) {
                 visted[j] = 1;
                 dfs(isConnected, visted, j);
             }
