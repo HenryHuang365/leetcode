@@ -4,51 +4,52 @@ import java.util.Queue;
 public class Solution {
     public int findCircleNum(int[][] isConnected) {
         int count = 0;
-        int[] visted = new int[isConnected.length];
+        int[] visited = new int[isConnected.length];
         for (int i = 0; i < isConnected.length; i++) {
-            if (visted[i] == 0) {
-                dfs(isConnected, visted, i);
+            if (visited[i] == 0) {
+                dfs(isConnected, visited, i);
                 count++;
             }
         }
         return count;
     }
 
-    public void dfs(int[][] isConnected, int[] visted, int i) {
+    public void dfs(int[][] isConnected, int[] visited, int i) {
         for (int j = 0; j < isConnected.length; j++) {
-            if (isConnected[i][j] == 1 && visted[j] == 0) {
-                visted[j] = 1;
-                dfs(isConnected, visted, j);
+            if (isConnected[i][j] == 1 && visited[j] == 0) {
+                visited[j] = 1;
+                dfs(isConnected, visited, j);
             }
         }
     }
 
     public int findCircleNumBFS(int[][] isConnected) {
         int count = 0;
-        int[] visted = new int[isConnected.length];
+        int[] visited = new int[isConnected.length];
         for (int i = 0; i < isConnected.length; i++) {
-            if (visted[i] == 0) {
+            if (visited[i] == 0) {
+                bfs(isConnected, visited, i);
                 count++;
-                bfs(isConnected, visted, i);
             }
         }
         return count;
     }
 
-    public void bfs(int[][] isConnected, int[] visted, int i) {
-        Queue<Integer> nextToVisted = new LinkedList<>();
-        nextToVisted.offer(i);
-        while (!nextToVisted.isEmpty()) {
-            int node = nextToVisted.poll();
-            if (visted[node] == 1) {
+    public void bfs(int[][] isConnected, int[] visited, int i) {
+        Queue<Integer> nexToVisited = new LinkedList<>();
+        nexToVisited.offer(i);
+
+        while (!nexToVisited.isEmpty()) {
+            int node = nexToVisited.poll();
+            if (visited[node] == 1) {
                 continue;
             }
 
-            visted[node] = 1;
+            visited[node] = 1;
 
             for (int j = 0; j < isConnected.length; j++) {
-                if (isConnected[node][j] == 1 && visted[j] == 0) {
-                    nextToVisted.offer(j);
+                if (isConnected[node][j] == 1 && visited[j] == 0) {
+                    nexToVisited.offer(j);
                 }
             }
         }
