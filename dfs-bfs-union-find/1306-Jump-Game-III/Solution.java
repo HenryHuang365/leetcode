@@ -2,29 +2,31 @@ import java.util.*;
 
 public class Solution {
     public boolean canReach(int[] arr, int start) {
-        int N = arr.length;
-        HashSet<Integer> visitedIndex = new HashSet<>();
+        int n = arr.length;
         Queue<Integer> nextToVisit = new LinkedList<>();
-
         nextToVisit.offer(start);
+        HashSet<Integer> visited = new HashSet<>();
 
         while (!nextToVisit.isEmpty()) {
             int index = nextToVisit.poll();
-            if (visitedIndex.contains(index)) {
+
+            if (arr[index] == 0) {
+                return true;
+            }
+
+            if (visited.contains(index)) {
                 continue;
             }
-            visitedIndex.add(index);
-            int jumpValue = arr[index];
-            if (jumpValue == 0) {
-                return true;
-            } else {
-                if (index - jumpValue >= 0 && index - jumpValue < N) {
-                    nextToVisit.offer(index - jumpValue);
-                }
-                
-                if (index + jumpValue >= 0 && index + jumpValue < N) {
-                    nextToVisit.offer(index + jumpValue);
-                }  
+
+            visited.add(index);
+            int leftJump = index - arr[index];
+            int rightJump = index + arr[index];
+            if (rightJump < n && !visited.contains(rightJump)) {
+                nextToVisit.add(index + arr[index]);
+            }
+
+            if (leftJump >= 0 && !visited.contains(leftJump)) {
+                nextToVisit.add(index - arr[index]);
             }
         }
         return false;
@@ -32,8 +34,8 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] arr = new int[] {4, 2, 3, 0, 3, 1, 2};
-        int[] arr2 = new int[] {3, 0, 2, 1, 2};
+        int[] arr = new int[] { 4, 2, 3, 0, 3, 1, 2 };
+        int[] arr2 = new int[] { 3, 0, 2, 1, 2 };
         System.out.println("Output: " + solution.canReach(arr, 5));
         System.out.println("Output: " + solution.canReach(arr, 0));
         System.out.println("Output: " + solution.canReach(arr2, 2));
