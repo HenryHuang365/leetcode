@@ -36,11 +36,11 @@ public class Solution {
     }
 
     public void bfs(int[][] isConnected, int[] visited, int i) {
-        Queue<Integer> nexToVisited = new LinkedList<>();
-        nexToVisited.offer(i);
+        Queue<Integer> nextToVisit = new LinkedList<>();
+        nextToVisit.offer(i);
 
-        while (!nexToVisited.isEmpty()) {
-            int node = nexToVisited.poll();
+        while (!nextToVisit.isEmpty()) {
+            int node = nextToVisit.poll();
             if (visited[node] == 1) {
                 continue;
             }
@@ -49,7 +49,7 @@ public class Solution {
 
             for (int j = 0; j < isConnected.length; j++) {
                 if (isConnected[node][j] == 1 && visited[j] == 0) {
-                    nexToVisited.offer(j);
+                    nextToVisit.offer(j);
                 }
             }
         }
