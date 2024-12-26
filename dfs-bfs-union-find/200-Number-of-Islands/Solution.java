@@ -30,11 +30,9 @@ public class Solution {
     }
 
     public void dfs(char[][] grid, int i, int j) {
-        if (
-            (i < 0 || i >= grid.length) ||
-            (j < 0 || j >= grid[0].length) ||
-            (grid[i][j] == '0')
-        ) {
+        if ((i < 0 || i >= grid.length) ||
+                (j < 0 || j >= grid[0].length) ||
+                (grid[i][j] == '0')) {
             return;
         }
         grid[i][j] = '0';
@@ -59,9 +57,9 @@ public class Solution {
 
     public void bfs(char[][] grid, int i, int j) {
         Queue<int[]> nextToVisit = new LinkedList<>();
-        nextToVisit.offer(new int[] {i, j});
+        nextToVisit.offer(new int[] { i, j });
 
-        int[][] directions = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
@@ -77,7 +75,7 @@ public class Solution {
                 int r = row + dir[0];
                 int c = col + dir[1];
                 if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] == '1') {
-                    nextToVisit.offer(new int[] {r, c});
+                    nextToVisit.offer(new int[] { r, c });
                 }
             }
         }
@@ -102,10 +100,10 @@ public class Solution {
         System.out.println("output: " + solution.numIslands(input2));
 
         char[][] input3 = new char[][] {
-            { '1', '1', '1', '1', '0' },
-            { '1', '1', '0', '1', '0' },
-            { '1', '1', '0', '0', '0' },
-            { '0', '0', '0', '0', '0' },
+                { '1', '1', '1', '1', '0' },
+                { '1', '1', '0', '1', '0' },
+                { '1', '1', '0', '0', '0' },
+                { '0', '0', '0', '0', '0' },
         };
 
         char[][] input4 = new char[][] {
