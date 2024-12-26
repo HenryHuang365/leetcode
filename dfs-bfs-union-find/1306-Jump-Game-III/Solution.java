@@ -22,11 +22,11 @@ public class Solution {
             int leftJump = index - arr[index];
             int rightJump = index + arr[index];
             if (rightJump < n && !visited.contains(rightJump)) {
-                nextToVisit.add(index + arr[index]);
+                nextToVisit.offer(rightJump);
             }
 
             if (leftJump >= 0 && !visited.contains(leftJump)) {
-                nextToVisit.add(index - arr[index]);
+                nextToVisit.offer(leftJump);
             }
         }
         return false;
