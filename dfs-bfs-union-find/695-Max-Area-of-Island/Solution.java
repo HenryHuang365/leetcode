@@ -4,11 +4,8 @@ import java.util.Queue;
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
         int res = 0;
-        int width = grid.length;
-        int length = grid[0].length;
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < length; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 1) {
                     int area = dfs(grid, i, j);
                     res = Math.max(res, area);
@@ -19,9 +16,11 @@ class Solution {
     }
 
     public int dfs(int[][] grid, int i, int j) {
-        if ((i < 0 || i >= grid.length) ||
-                (j < 0 || j >= grid[0].length) ||
-                grid[i][j] == 0) {
+        if (
+            (i < 0 || i >= grid.length) ||
+            (j < 0 || j >= grid[0].length) ||
+            grid[i][j] == 0
+        ) {
             return 0;
         }
         grid[i][j] = 0;
@@ -52,6 +51,7 @@ class Solution {
         nextToVisit.offer(new int[] { i, j });
         int count = 0;
 
+        int[][] directions = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
@@ -64,7 +64,6 @@ class Solution {
             grid[row][col] = 0;
             count++;
 
-            int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
             for (int[] dir : directions) {
                 int r = row + dir[0];
                 int c = col + dir[1];
