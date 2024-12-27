@@ -9,9 +9,9 @@ public class Solution {
         int n = arr.length;
         HashMap<Integer, List<Integer>> indexMap = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            List<Integer> updateArr = indexMap.getOrDefault(arr[i], new ArrayList<>());
-            updateArr.add(i);
-            indexMap.put(arr[i], updateArr);
+            List<Integer> updatedList = indexMap.getOrDefault(arr[i], new ArrayList<>());
+            updatedList.add(i);
+            indexMap.put(arr[i], updatedList);
         }
 
         int count = 0;
@@ -20,7 +20,7 @@ public class Solution {
         int[] visited = new int[n];
         while (!nextToVisit.isEmpty()) {
             int size = nextToVisit.size();
-            for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 int index = nextToVisit.poll();
                 if (visited[index] == 1) {
                     continue;
@@ -41,7 +41,7 @@ public class Solution {
 
                 if (indexMap.containsKey(arr[index])) {
                     for (int jumpIndex : indexMap.get(arr[index])) {
-                        if (visited[jumpIndex] == 0) {
+                        if (jumpIndex != index && visited[jumpIndex] == 0) {
                             nextToVisit.offer(jumpIndex);
                         }
                     }
