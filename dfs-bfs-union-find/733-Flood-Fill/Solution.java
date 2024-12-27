@@ -1,34 +1,27 @@
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Solution {
     public int[][] floodFillBFS(int[][] image, int sr, int sc, int color) {
         Queue<int[]> nextToVisit = new LinkedList<>();
-        nextToVisit.add(new int[] { sr, sc });
-        HashSet<String> visted = new HashSet<String>();
-
+        nextToVisit.offer(new int[] { sr, sc });
         int originalColor = image[sr][sc];
-        int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        int[][] directions = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
             int col = cell[1];
-            if (visted.contains(row + ", " + col)) {
+            if (image[row][col] != originalColor || image[row][col] == color) {
                 continue;
             }
-            visted.add(row + ", " + col);
             image[row][col] = color;
-
             for (int[] dir : directions) {
                 int r = row + dir[0];
                 int c = col + dir[1];
-
-                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length && image[r][c] == originalColor
-                        && !visted.contains(r + ", " + c)) {
-                    nextToVisit.add(new int[] { r, c });
+                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length && (image[r][c] == originalColor || image[r][c] != color)) {
+                    nextToVisit.offer(new int[] {r, c});
                 }
             }
         }
@@ -42,10 +35,12 @@ public class Solution {
     }
 
     public void dfs(int[][] image, int i, int j, int originalColor, int color) {
-        if ((i < 0 || i >= image.length) ||
-                (j < 0 || j >= image[0].length) ||
-                (image[i][j] == color) ||
-                (image[i][j] != originalColor)) {
+        if (
+            (i < 0 || i >= image.length) ||
+            (j < 0 || j >= image[0].length) ||
+            (image[i][j] != originalColor) ||
+            (image[i][j] == color)
+        ) {
             return;
         }
         image[i][j] = color;
@@ -58,9 +53,9 @@ public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         int[][] image = new int[][] { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 } };
-        // int[][] image = new int[][] { { 0, 0, 0 }, { 0, 0, 0 } };
+        int[][] image2 = new int[][] { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 } };
         int[][] newImageBFS = solution.floodFillBFS(image, 1, 1, 2);
-        int[][] newImageDFS = solution.floodFillDFS(image, 1, 1, 2);
+        int[][] newImageDFS = solution.floodFillDFS(image2, 1, 1, 2);
         System.out.println("BFS: ");
         for (int[] row : newImageBFS) {
             System.out.println("Output: " + Arrays.toString(row));
