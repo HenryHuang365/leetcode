@@ -53,11 +53,11 @@ public class Solution {
 
         return count;
     }
-    
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] arr = new int[] {100,-23,-23,404,100,23,23,23,3,404};
-        int[] arr1 = new int[] {7,6,9,6,9,6,9,7};
+        int[] arr = new int[] { 100, -23, -23, 404, 100, 23, 23, 23, 3, 404 };
+        int[] arr1 = new int[] { 7, 6, 9, 6, 9, 6, 9, 7 };
         System.out.println("Output: " + solution.minJumps(arr));
         System.out.println("Output: " + solution.minJumps(arr1));
     }
