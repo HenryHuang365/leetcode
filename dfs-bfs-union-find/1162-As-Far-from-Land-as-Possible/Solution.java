@@ -15,24 +15,25 @@ public class Solution {
             }
         }
 
-        if (nextToVisit.isEmpty() || nextToVisit.size() == n * n) {
+        if (nextToVisit.size() == 0 || nextToVisit.size() == n * n) {
             return -1;
         }
 
-        int result = -1;
+        int result = 0;
         int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
             int col = cell[1];
-            result = grid[row][col];
+
+            result = Math.max(result, grid[row][col]);
 
             for (int[] dir : directions) {
                 int r = row + dir[0];
                 int c = col + dir[1];
                 if (r >= 0 && r < n && c >= 0 && c < n && grid[r][c] == 0) {
-                    nextToVisit.offer(new int[] { r, c });
                     grid[r][c] = grid[row][col] + 1;
+                    nextToVisit.offer(new int[] { r, c });
                 }
             }
         }
