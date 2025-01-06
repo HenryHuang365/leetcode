@@ -18,6 +18,7 @@ public class Solution {
         Queue<Integer> nextToVisit = new LinkedList<>();
         nextToVisit.offer(0);
         int[] visited = new int[n];
+
         while (!nextToVisit.isEmpty()) {
             int size = nextToVisit.size();
             for (int j = 0; j < size; j++) {
@@ -27,6 +28,7 @@ public class Solution {
                 }
 
                 visited[index] = 1;
+
                 if (index == n - 1) {
                     return count;
                 }
@@ -41,7 +43,7 @@ public class Solution {
 
                 if (indexMap.containsKey(arr[index])) {
                     for (int jumpIndex : indexMap.get(arr[index])) {
-                        if (jumpIndex != index && visited[jumpIndex] == 0) {
+                        if (visited[jumpIndex] == 0) {
                             nextToVisit.offer(jumpIndex);
                         }
                     }
