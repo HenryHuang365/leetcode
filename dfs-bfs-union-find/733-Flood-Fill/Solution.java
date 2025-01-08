@@ -4,24 +4,27 @@ import java.util.Queue;
 
 public class Solution {
     public int[][] floodFillBFS(int[][] image, int sr, int sc, int color) {
+        int originalColor = image[sr][sc];
         Queue<int[]> nextToVisit = new LinkedList<>();
         nextToVisit.offer(new int[] { sr, sc });
-        int originalColor = image[sr][sc];
-        int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
+        int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
             int row = cell[0];
             int col = cell[1];
-            if (image[row][col] != originalColor || image[row][col] == color) {
+
+            if (image[row][col] == color || image[row][col] != originalColor) {
                 continue;
             }
+
             image[row][col] = color;
+
             for (int[] dir : directions) {
                 int r = row + dir[0];
                 int c = col + dir[1];
-                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length
-                        && (image[r][c] == originalColor || image[r][c] != color)) {
+
+                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length && image[r][c] == originalColor) {
                     nextToVisit.offer(new int[] { r, c });
                 }
             }
