@@ -7,7 +7,7 @@ public class Solution {
         Queue<int[]> nextToVisit = new LinkedList<>();
         nextToVisit.offer(new int[] { sr, sc });
         int originalColor = image[sr][sc];
-        int[][] directions = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[][] directions = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
         while (!nextToVisit.isEmpty()) {
             int[] cell = nextToVisit.poll();
@@ -20,8 +20,9 @@ public class Solution {
             for (int[] dir : directions) {
                 int r = row + dir[0];
                 int c = col + dir[1];
-                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length && (image[r][c] == originalColor || image[r][c] != color)) {
-                    nextToVisit.offer(new int[] {r, c});
+                if (r >= 0 && r < image.length && c >= 0 && c < image[0].length
+                        && (image[r][c] == originalColor || image[r][c] != color)) {
+                    nextToVisit.offer(new int[] { r, c });
                 }
             }
         }
@@ -35,14 +36,13 @@ public class Solution {
     }
 
     public void dfs(int[][] image, int i, int j, int originalColor, int color) {
-        if (
-            (i < 0 || i >= image.length) ||
-            (j < 0 || j >= image[0].length) ||
-            (image[i][j] != originalColor) ||
-            (image[i][j] == color)
-        ) {
+        if ((i < 0 || i >= image.length) ||
+                (j < 0 || j >= image[0].length) ||
+                (image[i][j] == color) ||
+                (image[i][j] != originalColor)) {
             return;
         }
+
         image[i][j] = color;
         dfs(image, i + 1, j, originalColor, color);
         dfs(image, i - 1, j, originalColor, color);
