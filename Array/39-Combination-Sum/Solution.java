@@ -6,8 +6,6 @@
 
 // The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
 
- 
-
 // Example 1:
 
 // Input: candidates = [2,3,6,7], target = 7
@@ -24,7 +22,6 @@
 
 // Input: candidates = [2], target = 1
 // Output: []
- 
 
 // Constraints:
 
@@ -36,34 +33,39 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> list = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack(list, candidates, new ArrayList<>(), target, 0);
-
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        backtracking(candidates, list, path, target, 0, 0);
         return list;
     }
 
-    public void backtrack(List<List<Integer>> list, int[] candidates, List<Integer> tempList, int remain, int start) {
-        if (remain < 0) {
+    public void backtracking(int[] candidates, List<List<Integer>> list, List<Integer> path, int target, int sum,
+            int start) {
+        if (sum > target) {
             return;
-        } else if (remain == 0) {
-            list.add(new ArrayList<>(tempList));
+        } else if (sum == target) {
+            list.add(new ArrayList<>(path));
         } else {
             for (int i = start; i < candidates.length; i++) {
-                tempList.add(candidates[i]);
-                backtrack(list, candidates, tempList, remain - candidates[i], i);
-                tempList.remove(tempList.size() - 1);
+                path.add(candidates[i]);
+                backtracking(candidates, list, path, target, sum + candidates[i], i);
+                path.remove(path.size() - 1);
             }
         }
     }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int[] candidates = new int[] {2,3,6,7};
+        int[] candidates = new int[] { 2, 3, 6, 7 };
         int target = 7;
 
         System.out.println("output: " + solution.combinationSum(candidates, target));
+        System.out.println("output: " + solution.combinationSum(new int[] { 2, 3, 5 }, 8));
+        System.out.println("output: " + solution.combinationSum(new int[] { 2 }, 1));
     }
 }
