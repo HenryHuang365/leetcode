@@ -32,19 +32,18 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        Arrays.sort(candidates);
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        backtracking(candidates, list, path, target, 0, 0);
+
+        backtracking(candidates, list, path, 0, target, 0);
         return list;
     }
 
-    public void backtracking(int[] candidates, List<List<Integer>> list, List<Integer> path, int target, int sum,
-            int start) {
+    public void backtracking(int[] candidates, List<List<Integer>> list,
+            List<Integer> path, int sum, int target, int start) {
         if (sum > target) {
             return;
         } else if (sum == target) {
@@ -52,7 +51,7 @@ class Solution {
         } else {
             for (int i = start; i < candidates.length; i++) {
                 path.add(candidates[i]);
-                backtracking(candidates, list, path, target, sum + candidates[i], i);
+                backtracking(candidates, list, path, sum + candidates[i], target, i);
                 path.remove(path.size() - 1);
             }
         }
