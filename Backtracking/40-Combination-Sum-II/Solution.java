@@ -4,8 +4,6 @@
 
 // Note: The solution set must not contain duplicate combinations.
 
- 
-
 // Example 1:
 
 // Input: candidates = [10,1,2,7,6,1,5], target = 8
@@ -24,7 +22,6 @@
 // [1,2,2],
 // [5]
 // ]
- 
 
 // Constraints:
 
@@ -37,25 +34,26 @@ import java.util.Arrays;
 
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> list = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         Arrays.sort(candidates);
 
-        backtrack(res, candidates, path, target, 0);
-
-        return res;
+        backtracking(candidates, list, path, 0, target, 0);
+        return list;
     }
 
-    public void backtrack(List<List<Integer>> res, int[] candidates, List<Integer> path, int remain, int start) {
-        if (remain < 0) {
+    public void backtracking(int[] candidates, List<List<Integer>> list, List<Integer> path,
+            int sum, int target, int start) {
+        if (sum > target) {
             return;
-        } else if (remain == 0) {
-            res.add(new ArrayList<>(path));
+        } else if (sum == target) {
+            list.add(new ArrayList<>(path));
         } else {
             for (int i = start; i < candidates.length; i++) {
-                if (i > start && candidates[i] == candidates[i - 1]) continue;
+                if (i > start && candidates[i] == candidates[i - 1])
+                    continue;
                 path.add(candidates[i]);
-                backtrack(res, candidates, path, remain - candidates[i], i + 1);
+                backtracking(candidates, list, path, sum + candidates[i], target, i + 1);
                 path.remove(path.size() - 1);
             }
         }
@@ -64,7 +62,7 @@ class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int[] candidates = new int[] {10,1,2,7,6,1,5};
+        int[] candidates = new int[] { 10, 1, 2, 7, 6, 1, 5 };
 
         System.out.println("Output: " + solution.combinationSum2(candidates, 8));
     }
