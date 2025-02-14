@@ -37,21 +37,22 @@ class Solution {
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         Arrays.sort(candidates);
-
         backtracking(candidates, list, path, 0, target, 0);
         return list;
     }
 
-    public void backtracking(int[] candidates, List<List<Integer>> list, List<Integer> path,
-            int sum, int target, int start) {
+    public void backtracking(int[] candidates, List<List<Integer>> list, List<Integer> path, int sum, int target,
+            int start) {
         if (sum > target) {
             return;
         } else if (sum == target) {
             list.add(new ArrayList<>(path));
         } else {
             for (int i = start; i < candidates.length; i++) {
-                if (i > start && candidates[i] == candidates[i - 1])
+                if (i > start && candidates[i - 1] == candidates[i])
                     continue;
+                if (sum + candidates[i] > target)
+                    break;
                 path.add(candidates[i]);
                 backtracking(candidates, list, path, sum + candidates[i], target, i + 1);
                 path.remove(path.size() - 1);
