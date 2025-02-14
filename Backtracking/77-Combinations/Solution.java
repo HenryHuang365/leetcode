@@ -4,12 +4,12 @@ import java.util.List;
 public class Solution {
     public List<List<Integer>> combine(int n, int k) {
         int[] nums = new int[n];
-        for (int i = 1; i <= n; i++) {
-            nums[i - 1] = i;
+        for (int i = 0; i < n; i++) {
+            nums[i] = i + 1;
         }
+
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-
         backtracking(nums, list, path, k, 0);
         return list;
     }
