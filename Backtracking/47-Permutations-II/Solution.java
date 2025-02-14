@@ -6,18 +6,14 @@ public class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        Arrays.sort(nums);
         boolean[] used = new boolean[nums.length];
-
+        Arrays.sort(nums);
         backtracking(nums, list, path, used);
         return list;
     }
 
     public void backtracking(int[] nums, List<List<Integer>> list, List<Integer> path, boolean[] used) {
         if (path.size() == nums.length) {
-            // if (!list.contains(new ArrayList<>(path))) {
-            // list.add(new ArrayList<>(path));
-            // } // This is a way to avoid duplicates but takes more time
             list.add(new ArrayList<>(path));
         } else {
             for (int i = 0; i < nums.length; i++) {
