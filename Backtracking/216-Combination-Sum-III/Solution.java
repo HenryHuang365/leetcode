@@ -38,8 +38,29 @@ class Solution {
         }
     }
 
+    public List<List<Integer>> combinationSum3Two(int k, int n) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+
+        backtrackingTwo(list, path, 1, 0, k, n);
+        return list;
+    }
+
+    public void backtrackingTwo(List<List<Integer>> list, List<Integer> path, int start, int sum, int k, int target) {
+        if (sum == target && path.size() == k) {
+            list.add(new ArrayList<>(path));
+        } else {
+            for (int i = start; i <= 9; i++) {
+                path.add(i);
+                backtrackingTwo(list, path, i + 1, sum + i, k, target);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println("Output: " + solution.combinationSum3(3, 7).toString());
+        System.out.println("Output second method: " + solution.combinationSum3Two(3, 7).toString());
     }
 }
