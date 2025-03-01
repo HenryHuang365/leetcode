@@ -1,8 +1,7 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) { // 30, 20, 40, 70, 60, 80
         Node root = new Node(50);
 
-        // Insert nodes
         root.insert(30);
         root.insert(20);
         root.insert(40);
