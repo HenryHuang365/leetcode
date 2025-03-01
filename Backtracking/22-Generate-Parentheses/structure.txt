@@ -1,0 +1,38 @@
+src/
+│── Application/  # Application logic (Ports)
+│   │── DataFixtures/
+│   │   │── AppFixtures.php # load some mock data for both Subcontractor Supplier and more modules in the future
+│   │── Entity/
+│   │   │── Subcontractor.php # Subcontractor schema
+│   │   │── Supplier.php # Supplier schema
+│   │── Model/
+│   │   │── Subcontractor/
+│   │   │   │── CreateSubcontractor.php # DTO for mapping create subcontractor data model
+│   │   │   │── SubcontractorResponse.php # DTO for mapping list subcontractors data model
+│   │   │   │── PatchSubcontractor.php # DTO for mapping patch subcontractor data model
+│   │   │── Supplier/
+│   │   │   │── CreateSupplier.php # DTO for mapping create supplier data model
+│   │   │   │── SupplierResponse.php # DTO for mapping list supplier data model
+│   │   │   │── PatchSupplier.php # DTO for mapping patch supplier data model
+│
+│── Core/  # Functional Core (Pure Business Logic)
+│   │── Subcontractor/
+│   │   │── FinalCost.php # the final cost calculation core function for subcontractor
+│   │── Supplier/
+│   │   │── FinalCost.php # the final cost calculation core function for supplier
+│
+│── Infrastructure/  # Imperative Shell (Adapters, Side Effects)
+│   │── Persistence/
+│   │   │── Repository/ # one repository for one database table
+│   │   │   │── SubcontractorRepository.php 
+│   │   │   │── SupplierRepository.php 
+│   │── Controller/ # Handles communication through api requests for each feature modules (subcontractor, supplier and so on)
+│   │   │── Subcontractor/
+│   │   │   │── CreateSubcontractorController.php
+│   │   │   │── ListSubcontractorsController.php
+│   │   │   │── UpdateSubcontractorController.php
+│   │   │── Supplier/
+│   │   │   │── CreateSupplierController.php
+│   │   │   │── ListSupplierontroller.php
+│   │   │   │── UpdateSupplierController.php
+│── Kernel.php
