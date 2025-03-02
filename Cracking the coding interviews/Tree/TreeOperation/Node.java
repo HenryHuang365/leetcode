@@ -2,7 +2,6 @@ class Node {
     Node left, right;
     int data;
 
-    // Constructor for creating an empty tree
     public Node(int value) {
         this.data = value;
         this.left = null;
@@ -12,13 +11,15 @@ class Node {
     public void insert(int value) {
         if (value <= data) {
             if (left == null) {
-                left = new Node(value);
+                Node node = new Node(value);
+                left = node;
             } else {
                 left.insert(value);
             }
         } else {
             if (right == null) {
-                right = new Node(value);
+                Node node = new Node(value);
+                right = node;
             } else {
                 right.insert(value);
             }
@@ -28,9 +29,7 @@ class Node {
     public boolean search(int key) {
         if (data == key) {
             return true;
-        }
-
-        if (key < data) {
+        } else if (data > key) {
             if (left == null) {
                 return false;
             } else {
@@ -104,10 +103,7 @@ class Node {
             } else if (right == null) {
                 return left;
             }
-            // the deleted node is replaced with a new value from the right subtree.
             data = minValue(right).data;
-            // Since the min value in the right subtree is used, we will need to delete the
-            // used node in the right subtree.
             right = right.delete(data);
         }
         return this;
