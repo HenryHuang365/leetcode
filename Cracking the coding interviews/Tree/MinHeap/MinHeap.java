@@ -1,25 +1,26 @@
 import java.util.ArrayList;
+import java.util.List;
 
 class MinHeap {
-    private ArrayList<Integer> heap;
+    private List<Integer> heap;
 
     public MinHeap() {
         heap = new ArrayList<>();
     }
 
-    private int parent(int index) {
+    public int parent(int index) {
         return (index - 1) / 2;
     }
 
-    private int leftChild(int index) {
-        return 2 * index + 1;
+    public int leftChild(int index) {
+        return index * 2 + 1;
     }
 
-    private int rightChild(int index) {
-        return 2 * index + 2;
+    public int rightChild(int index) {
+        return index * 2 + 2;
     }
 
-    private void swap(int i, int j) {
+    public void swap(int i, int j) {
         int temp = heap.get(i);
         heap.set(i, heap.get(j));
         heap.set(j, temp);
@@ -29,7 +30,6 @@ class MinHeap {
         heap.add(value);
         int index = heap.size() - 1;
 
-        // Heapify up (Bubble up)
         while (index > 0 && heap.get(index) < heap.get(parent(index))) {
             swap(index, parent(index));
             index = parent(index);
@@ -47,14 +47,12 @@ class MinHeap {
 
         int min = heap.get(0);
         heap.set(0, heap.remove(heap.size() - 1));
-
-        // Heapify down (Bubble down)
         heapifyDown(0);
 
         return min;
     }
 
-    private void heapifyDown(int index) {
+    public void heapifyDown(int index) {
         int smallest = index;
         int left = leftChild(index);
         int right = rightChild(index);
@@ -77,10 +75,12 @@ class MinHeap {
         System.out.println(heap);
     }
 
+    // The minHeap instance to check if a heap is empty
     public boolean isEmpty() {
         return heap.isEmpty();
     }
 
+    // The minHeap instance to get the minimum
     public int peek() {
         if (heap.isEmpty()) {
             throw new IllegalStateException("Heap is empty!");
@@ -88,6 +88,7 @@ class MinHeap {
         return heap.get(0);
     }
 
+    // The minHeap instance to get the size of the heap
     public int size() {
         return heap.size();
     }
