@@ -27,9 +27,9 @@ class Node {
     }
 
     public boolean search(int key) {
-        if (data == key) {
+        if (key == data) {
             return true;
-        } else if (data > key) {
+        } else if (key < data) {
             if (left == null) {
                 return false;
             } else {
