@@ -46,11 +46,6 @@ public class TreeNode {
 
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) {
-            return null;
-        }
-
-        System.out.println(root.val);
         if (p.val > root.val && q.val > root.val) {
             return lowestCommonAncestor(root.right, p, q);
         } else if (p.val < root.val && q.val < root.val) {
