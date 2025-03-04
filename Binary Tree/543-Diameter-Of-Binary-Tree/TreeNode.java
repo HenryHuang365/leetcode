@@ -45,13 +45,11 @@ public class TreeNode {
 }
 
 class Solution {
-    public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null)
-            return 0;
-        int maxDiameterFromThisNode = maxPath(root.left) + maxPath(root.right);
+    int max = 0;
 
-        int maxDiameterFromChildNode = Math.max(diameterOfBinaryTree(root.left), diameterOfBinaryTree(root.right));
-        return Math.max(maxDiameterFromThisNode, maxDiameterFromChildNode);
+    public int diameterOfBinaryTree(TreeNode root) {
+        maxPath(root);
+        return max;
     }
 
     public int maxPath(TreeNode root) {
@@ -59,7 +57,13 @@ class Solution {
             return 0;
         int leftLength = maxPath(root.left);
         int rightLength = maxPath(root.right);
+
+        max = Math.max(max, leftLength + rightLength);
         return Math.max(leftLength, rightLength) + 1;
+    }
+
+    public void reset() {
+        this.max = 0;
     }
 
     public static void main(String args[]) {
@@ -76,6 +80,7 @@ class Solution {
         Solution solution = new Solution();
         int resultOne = solution.diameterOfBinaryTree(root);
         System.out.println("resultOne: " + resultOne);
+        solution.reset();
 
         // Second Tree
         TreeNode secondLeft = new TreeNode(2);
