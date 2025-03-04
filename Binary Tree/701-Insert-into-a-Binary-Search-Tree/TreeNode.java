@@ -49,20 +49,9 @@ class Solution {
         if (root == null)
             return new TreeNode(val);
         if (val <= root.val) {
-            if (root.left == null) {
-                TreeNode node = new TreeNode(val);
-                root.left = node;
-            } else {
-                root.left = insertIntoBST(root.left, val);
-            }
+            root.left = insertIntoBST(root.left, val);
         } else {
-            if (root.right == null) {
-                TreeNode node = new TreeNode(val);
-                System.out.println("node.val: " + node.val);
-                root.right = node;
-            } else {
-                root.right = insertIntoBST(root.right, val);
-            }
+            root.right = insertIntoBST(root.right, val);
         }
         return root;
     }
