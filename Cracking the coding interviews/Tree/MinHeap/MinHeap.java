@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MinHeap {
-    private List<Integer> heap;
+    List<Integer> heap;
 
     public MinHeap() {
-        heap = new ArrayList<>();
+        this.heap = new ArrayList<>();
     }
 
     public int parent(int index) {
@@ -38,7 +38,7 @@ class MinHeap {
 
     public int extractMin() {
         if (heap.isEmpty()) {
-            throw new IllegalStateException("Heap is empty!");
+            throw new IllegalStateException("Heap is empty");
         }
 
         if (heap.size() == 1) {
@@ -75,20 +75,17 @@ class MinHeap {
         System.out.println(heap);
     }
 
-    // The minHeap instance to check if a heap is empty
     public boolean isEmpty() {
         return heap.isEmpty();
     }
 
-    // The minHeap instance to get the minimum
     public int peek() {
         if (heap.isEmpty()) {
-            throw new IllegalStateException("Heap is empty!");
+            throw new IllegalStateException("Heap is empty");
         }
         return heap.get(0);
     }
 
-    // The minHeap instance to get the size of the heap
     public int size() {
         return heap.size();
     }
