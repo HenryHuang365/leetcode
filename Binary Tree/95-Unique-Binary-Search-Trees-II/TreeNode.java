@@ -31,23 +31,25 @@ public class TreeNode {
 }
 
 class Solution {
-    int diff = 0;
+    int start = 1;
 
     public List<TreeNode> generateTrees(int n) {
         List<TreeNode> bst = new ArrayList<>();
-        if (n == 0) {
+        if (start > n) {
             bst.add(null);
             return bst;
         }
 
-        if (n == 1) {
-            bst.add(new TreeNode(1));
+        if (n == start) {
+            bst.add(new TreeNode(start));
             return bst;
         }
-
-        for (int i = 1; i <= n; i++) {
+        int localStart = start;
+        for (int i = start; i <= n; i++) {
             List<TreeNode> left = generateTrees(i - 1);
-            List<TreeNode> right = generateTrees(n - i);
+            start = i + 1;
+            List<TreeNode> right = generateTrees(n);
+            start = localStart;
             for (TreeNode leftChild : left) {
                 for (TreeNode rightChild : right) {
                     TreeNode node = new TreeNode(i, leftChild, rightChild);
