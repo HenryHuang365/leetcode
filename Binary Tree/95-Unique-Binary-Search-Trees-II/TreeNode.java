@@ -31,25 +31,20 @@ public class TreeNode {
 }
 
 class Solution {
-    int start = 1;
-
     public List<TreeNode> generateTrees(int n) {
+        return insert(1, n);
+    }
+
+    public List<TreeNode> insert(int start, int end) {
         List<TreeNode> bst = new ArrayList<>();
-        if (start > n) {
+        if (start > end) {
             bst.add(null);
             return bst;
         }
 
-        if (n == start) {
-            bst.add(new TreeNode(start));
-            return bst;
-        }
-        int localStart = start;
-        for (int i = start; i <= n; i++) {
-            List<TreeNode> left = generateTrees(i - 1);
-            start = i + 1;
-            List<TreeNode> right = generateTrees(n);
-            start = localStart;
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> left = insert(start, i - 1);
+            List<TreeNode> right = insert(i + 1, end);
             for (TreeNode leftChild : left) {
                 for (TreeNode rightChild : right) {
                     TreeNode node = new TreeNode(i, leftChild, rightChild);
@@ -62,7 +57,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        List<TreeNode> res = solution.generateTrees(3);
+        List<TreeNode> res = solution.generateTrees(4);
 
         for (TreeNode r : res) {
             r.preorder();
