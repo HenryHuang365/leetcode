@@ -46,18 +46,19 @@ public class TreeNode {
 
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if (root.left == null && root.right == null) {
+        return search(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean search(TreeNode root, long min, long max) {
+        if (root == null) {
             return true;
         }
 
-        if (root.left != null && root.right != null) {
-            return root.left.val < root.val && isValidBST(root.left) && root.right.val > root.val
-                    && isValidBST(root.right);
-        } else if (root.left != null) {
-            return root.left.val < root.val && isValidBST(root.left);
-        } else {
-            return root.right.val > root.val && isValidBST(root.right);
+        if (root.val <= min || root.val >= max) {
+            return false;
         }
+
+        return search(root.left, min, root.val) && search(root.right, root.val, max);
     }
 
     public static void main(String args[]) {
@@ -84,7 +85,6 @@ class Solution {
         secondRoot.inorder();
         System.out.println("");
 
-        System.out.print("After invert: ");
         System.out.println("Output: " + solution.isValidBST(secondRoot));
     }
 }
