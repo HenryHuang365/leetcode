@@ -14,7 +14,8 @@ public class Solution {
 
         int targetSum = totalSum / 2;
 
-        // Use dynamic programming to check if a subset with sum equal to targetSum exists
+        // Use dynamic programming to check if a subset with sum equal to targetSum
+        // exists
         boolean[][] dp = new boolean[arr.length + 1][targetSum + 1];
         for (int i = 0; i <= arr.length; i++) {
             dp[i][0] = true; // Subset with sum 0 is always possible
@@ -58,12 +59,12 @@ public class Solution {
         StringBuilder result = new StringBuilder();
         if (sortedSet1[0] < sortedSet2[0]) {
             result.append(Arrays.toString(sortedSet1).replaceAll("[\\[\\] ]", ""))
-                  .append(",")
-                  .append(Arrays.toString(sortedSet2).replaceAll("[\\[\\] ]", ""));
+                    .append(",")
+                    .append(Arrays.toString(sortedSet2).replaceAll("[\\[\\] ]", ""));
         } else {
             result.append(Arrays.toString(sortedSet2).replaceAll("[\\[\\] ]", ""))
-                  .append(",")
-                  .append(Arrays.toString(sortedSet1).replaceAll("[\\[\\] ]", ""));
+                    .append(",")
+                    .append(Arrays.toString(sortedSet1).replaceAll("[\\[\\] ]", ""));
         }
 
         // Replace characters that are in the ChallengeToken with the format --[CHAR]--
@@ -85,7 +86,7 @@ public class Solution {
 
     public static void main(String[] args) {
         // Test case
-        int[] arr = {16, 22, 35, 8, 20, 1, 21, 11};
-        System.out.println(ArrayChallenge(arr));  // Expected output: 1,11,20,35,8,16,21,22
+        int[] arr = { 16, 22, 35, 8, 20, 1, 21, 11 };
+        System.out.println(ArrayChallenge(arr)); // Expected output: 1,11,20,35,8,16,21,22
     }
 }
