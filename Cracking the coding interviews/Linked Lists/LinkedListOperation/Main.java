@@ -17,5 +17,19 @@ public class Main {
         list.printLinkedListRecursion(list.head); // Recursive print
         System.out.println();
         System.out.println("Has Cycled: " + list.hasCycle(list.head));
+
+        LinkedList listTwo = new LinkedList();
+        listTwo.appendToTailRecursion(listTwo.head, 0);
+        listTwo.appendToTailRecursion(listTwo.head, 1);
+        listTwo.appendToTailRecursion(listTwo.head, 2);
+        listTwo.appendToTailRecursion(listTwo.head, 3);
+        System.out.print("Linked list two before: ");
+        list.printLinkedListRecursion(listTwo.head); // Recursive print
+
+        listTwo.delete(3);
+        listTwo.appendToTailRecursion(listTwo.head, 4);
+        System.out.println("");
+        System.out.print("Linked list two after deletion: ");
+        list.printLinkedListRecursion(listTwo.head); // Recursive print
     }
 }
