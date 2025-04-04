@@ -24,12 +24,6 @@ namespace LinkedListOperationCSharp.LinkedList
                 return;
             }
 
-            if (head.data == value)
-            {
-                head.next = new LinkedListNode(value);
-                return;
-            }
-
             LinkedListNode currNode = head;
 
             while (currNode.next != null)

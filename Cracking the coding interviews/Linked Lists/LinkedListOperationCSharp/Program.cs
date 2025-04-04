@@ -1,5 +1,4 @@
-﻿using LinkedListOperationCSharp.CleanEmpty;
-using LinkedListOperationCSharp.LinkedList;
+﻿using LinkedListOperationCSharp.LinkedList;
 using LinkedListOperationCSharp.Node;
 
 class Program
@@ -16,10 +15,6 @@ class Program
         root.insert(80);
         Console.WriteLine("Inorder Tree: ");
         root.preorder();
-        int res = maxProfit([7, 6, 4, 3, 1]);
-        Console.WriteLine("");
-
-        Console.WriteLine("\nMax profit: " + res);
 
         LinkedList linkedList = new LinkedList();
         linkedList.appendToTail(0);
@@ -46,27 +41,5 @@ class Program
         Console.WriteLine("\nLinked list two recursion: ");
         listTwo.printLinkedListRecursion(listTwo.head);
         Console.WriteLine("");
-
-        Console.Write("\nClean json: ");
-        CleanEmpty.cleanEmptyFunc();
-    }
-
-    static int maxProfit(int[] prices)
-    {
-        int max = 0;
-        int start = 0;
-        int end = 1;
-        while (end < prices.Length)
-        {
-            int diff = prices[end] - prices[start];
-            if (diff < 0)
-            {
-                start = end;
-            }
-
-            max = Math.Max(max, diff);
-            end++;
-        }
-        return max;
     }
 }
