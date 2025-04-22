@@ -9,10 +9,78 @@
     }
 }
 
+public class LinkedList
+{
+    public ListNode? head;
+
+    public void appendToTail(int value)
+    {
+        if (head == null)
+        {
+            head = new ListNode(value);
+            return;
+        }
+
+        ListNode currNode = head;
+
+        while (currNode.next != null)
+        {
+            currNode = currNode.next;
+        }
+
+        currNode.next = new ListNode(value);
+    }
+
+    public void printLinkedList()
+    {
+        if (head == null)
+        {
+            return;
+        }
+
+        ListNode? currNode = head;
+        while (currNode != null)
+        {
+            Console.Write(currNode.val + " ");
+            currNode = currNode.next;
+        }
+    }
+}
+
 class Program
 {
+    public ListNode? ReverseList(ListNode head)
+    {
+        ListNode? newHead = null;
+        ListNode? currNode = head;
+        while (currNode != null)
+        {
+            ListNode newNode = new ListNode(currNode.val);
+            newNode.next = newHead;
+            newHead = newNode;
+            currNode = currNode.next;
+        }
+        return newHead;
+    }
     static void Main()
     {
-        Console.Write("Hello World");
+        LinkedList list = new LinkedList();
+        list.appendToTail(0);
+        list.appendToTail(1);
+        list.appendToTail(2);
+        list.appendToTail(3);
+        Console.Write("Before: ");
+        list.printLinkedList();
+
+        Console.WriteLine("");
+
+        Program program = new Program();
+        ListNode? newHead = program.ReverseList(list.head ?? new ListNode(0));
+        Console.Write("After: ");
+        while (newHead != null)
+        {
+            Console.Write(newHead.val + " ");
+            newHead = newHead.next;
+        }
     }
 }
