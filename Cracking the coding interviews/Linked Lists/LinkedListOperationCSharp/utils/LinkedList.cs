@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace LinkedListOperationCSharp.LinkedList
 {
     public class LinkedListNode
@@ -69,18 +71,17 @@ namespace LinkedListOperationCSharp.LinkedList
             if (head == null || head.next == null) return false;
 
             LinkedListNode? slow = head;
-            LinkedListNode? fast = head.next;
+            LinkedListNode? fast = head;
 
-            while (fast != null && fast.next != null)
+            while (slow != null && fast != null && fast.next != null)
             {
+                slow = slow.next;
+                fast = fast.next.next;
 
                 if (slow == fast)
                 {
                     return true;
                 }
-
-                slow = slow?.next;
-                fast = fast.next.next;
             }
             return false;
         }
