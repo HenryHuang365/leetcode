@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace LinkedListOperationCSharp.LinkedList
 {
     public class LinkedListNode
@@ -88,10 +86,7 @@ namespace LinkedListOperationCSharp.LinkedList
 
         public void makeCycle()
         {
-            if (head == null || head.next == null)
-            {
-                return;
-            }
+            if (head == null) return;
 
             LinkedListNode currNode = head;
             while (currNode.next != null)
@@ -104,10 +99,7 @@ namespace LinkedListOperationCSharp.LinkedList
 
         public void printLinkedList()
         {
-            if (head == null)
-            {
-                return;
-            }
+            if (head == null) return;
 
             LinkedListNode? currNode = head;
             while (currNode != null)
