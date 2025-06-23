@@ -1,5 +1,17 @@
 public class Main {
+
+    public void print(Node root) {
+        if (root == null) {
+            return;
+        }
+
+        print(root.left);
+        System.out.print(root.data + " ");
+        print(root.right);
+    }
+
     public static void main(String[] args) { // 30, 20, 40, 70, 60, 80
+        Main solution = new Main();
         Node root = new Node(50);
 
         root.insert(30);
@@ -11,6 +23,10 @@ public class Main {
 
         System.out.println("Inorder: ");
         root.inorder();
+        System.out.println();
+
+        System.out.println("Inorder Print: ");
+        solution.print(root);
         System.out.println();
 
         System.out.println("Preorder: ");
